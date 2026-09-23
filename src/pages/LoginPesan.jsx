@@ -34,10 +34,18 @@ export default function LoginPesan() {
       const res = await fetch(`/api/deletepesan?id=${id}`, {
         method: 'DELETE',
         headers: {
-          'x-admin-secret': 'SangatRahasia123', // Samakan kunci ini dengan yang ada di deletepesan.js / Vercel Env
+          'x-admin-secret': 'SangatRahasia123',
         },
       });
-      const data = await res.json();
+
+      // Ambil respon sebagai text dulu untuk mencegah crash parsing JSON
+      const textResponse = await res.text();
+      let data;
+      try {
+        data = JSON.parse(textResponse);
+      } catch (e) {
+        throw new Error(`Respon server bukan JSON: ${textResponse.substring(0, 100)}`);
+      }
 
       if (res.ok && data.success) {
         setPesanList((prevList) => prevList.filter((item) => item._id !== id));
@@ -46,7 +54,7 @@ export default function LoginPesan() {
       }
     } catch (err) {
       console.error(err);
-      alert(`Error Client: ${err.message}`);
+      alert(`Detail Error: ${err.message}`);
     }
   };
 
