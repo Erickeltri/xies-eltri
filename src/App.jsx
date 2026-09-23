@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Loading from './components/loading.jsx';
 
@@ -14,14 +14,16 @@ export default function App() {
   const [userData, setUserData] = useState(null);
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
+  // Ambil lokasi URL saat ini
+  const location = useLocation();
 
+  useEffect(() => {
     // Pesan Kustom Console NERV Theme
     console.log(
-  '%c I LOVE U / ELTRI     %c System Status: ONLINE ',
-  'font-size: 14px; font-weight: bold; color: #ff3333; text-shadow: 0 0 8px #ff3333; padding: 6px;',
-  'font-size: 12px; color: #00ff66; padding: 6px;'
-);
+      '%c I LOVE U / ELTRI     %c System Status: ONLINE ',
+      'font-size: 14px; font-weight: bold; color: #ff3333; text-shadow: 0 0 8px #ff3333; padding: 6px;',
+      'font-size: 12px; color: #00ff66; padding: 6px;'
+    );
 
     console.log(
       '%c"System operational. Developed with love by Eltri Putra Rombebua."%c',
@@ -72,11 +74,9 @@ export default function App() {
       { pct: 97, delay: 4400 },
       { pct: 98, delay: 4400 },
       { pct: 99, delay: 4500 },
-      { pct: 100, delay: 4750 } // Menyentuh 100% di detik ke-4.75
+      { pct: 100, delay: 4750 }
     ];
 
-    // TOTAL LOADING: 10 detik (10000ms)
-    // Teks 100% & CONNECTION ESTABLISHED akan nahan lama selama ~1.75 detik!
     const totalLoadingDuration = 10000;
 
     const timeouts = networkSteps.map(step => 
@@ -117,7 +117,8 @@ export default function App() {
     <>
       {isLoading && <Loading progress={progress} />}
 
-      <Header />
+      {/* Tampilkan Header HANYA jika jalurnya BUKAN /loginpesan */}
+      {location.pathname !== '/loginpesan' && <Header />}
 
       <Routes>
         <Route path="/" element={<Home userData={userData} />} />
