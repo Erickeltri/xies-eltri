@@ -9,11 +9,11 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI belum dikonfigurasi di Environment Variables Vercel.');
+  }
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
-    if (!MONGODB_URI) {
-      throw new Error('MONGODB_URI belum dikonfigurasi di Vercel.');
-    }
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
     }).then((m) => m);
@@ -22,16 +22,12 @@ async function dbConnect() {
   return cached.conn;
 }
 
-// Skema Pesan
-const PesanSchema = new mongoose.Schema({
-  nama: String,
-  pesan: String,
-  tanggal: String,
-}, { strict: false }); // strict: false agar tidak crash jika ada field beda
-
+// Model Pesan (dilengkapi strict: false)
+const PesanSchema = new mongoose.Schema({}, { strict: false, collection: 'pesans' });
 const Pesan = mongoose.models.Pesan || mongoose.model('Pesan', PesanSchema);
 
 export default async function handler(req, res) {
+  // Set header JSON agar browser selalu membaca JSON
   res.setHeader('Content-Type', 'application/json');
 
   if (req.method !== 'DELETE') {
@@ -41,14 +37,14 @@ export default async function handler(req, res) {
     });
   }
 
-  // Verifikasi Secret Header
+  // Cek Secret Key (opsional fallback jika env belum terpasang)
   const clientSecret = req.headers['x-admin-secret'];
   const serverSecret = process.env.ADMIN_SECRET_KEY || 'SangatRahasia123';
 
   if (clientSecret !== serverSecret) {
     return res.status(401).json({ 
       success: false, 
-      message: 'Akses ditolak! Kunci rahasia admin tidak cocok.' 
+      message: `Akses ditolak! Kunci rahasia tidak cocok.` 
     });
   }
 
@@ -57,21 +53,21 @@ export default async function handler(req, res) {
   if (!id) {
     return res.status(400).json({ 
       success: false, 
-      message: 'ID pesan tidak ditemukan' 
+      message: 'ID pesan tidak ditemukan pada query URL' 
     });
   }
 
   try {
     await dbConnect();
 
-    // Hapus menggunakan query fleksibel ($or untuk ObjectId dan String biasa)
     let deletedPesan = null;
 
+    // Coba hapus dengan ObjectId Mongoose
     if (mongoose.Types.ObjectId.isValid(id)) {
       deletedPesan = await Pesan.findByIdAndDelete(id);
     }
 
-    // Jika tidak ketemu lewat ObjectId, cari lewat filter _id bertipe string
+    // Jika tidak ketemu atau ID berupa String biasa
     if (!deletedPesan) {
       deletedPesan = await Pesan.findOneAndDelete({ _id: id });
     }
@@ -79,7 +75,7 @@ export default async function handler(req, res) {
     if (!deletedPesan) {
       return res.status(404).json({ 
         success: false, 
-        message: 'Pesan tidak ditemukan di database' 
+        message: 'Pesan tidak ditemukan di database MongoDB' 
       });
     }
 
@@ -92,7 +88,7 @@ export default async function handler(req, res) {
     console.error('Error deletepesan:', error);
     return res.status(500).json({ 
       success: false, 
-      message: error.message || 'Terjadi kesalahan internal server' 
+      message: `Database Error: ${error.message}` 
     });
   }
 }
