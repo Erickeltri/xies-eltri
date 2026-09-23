@@ -62,13 +62,19 @@ export default async function handler(req, res) {
   to: process.env.GMAIL_USER,
   subject: `📩 Pesan Baru dari ${nama.trim()}`,
   html: `
-    <div style="font-family: Arial, sans-serif; padding: 24px; border: 1px solid #e0e0e0; border-radius: 8px; max-width: 600px; background-color: #ffffff;">
+    <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; max-width: 600px; background-color: #ffffff;">
       
-      <!-- Header: Judul di Kiri & Logo di Kanan -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 style="color: #ff3333; margin: 0; font-size: 1.3rem;">Pesan Baru Diterima!</h2>
-        <img src="https://xies-eltri.vercel.app/logo.png" alt="Logo" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%;" />
-      </div>
+      <!-- Header Table -->
+      <table width="100%" cellPadding="0" cellSpacing="0" border="0" style="margin-bottom: 20px;">
+        <tr>
+          <td align="left" style="vertical-align: middle;">
+            <h2 style="color: #ff3333; margin: 0; font-size: 1.3rem;">Pesan Baru Diterima!</h2>
+          </td>
+          <td align="right" style="vertical-align: middle; width: 60px;">
+            <img src="https://xies-eltri.vercel.app/images/logo.png" alt="Logo" width="50" height="50" style="display: block; width: 50px; height: 50px; object-fit: contain; border-radius: 50%; border: 0;" />
+          </td>
+        </tr>
+      </table>
 
       <!-- Detail Pengirim & Pesan -->
       <p style="margin: 8px 0; color: #333;"><strong>Pengirim:</strong> ${nama.trim()}</p>
