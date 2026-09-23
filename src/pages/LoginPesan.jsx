@@ -46,23 +46,17 @@ export default function LoginPesan() {
         },
       });
 
-      const textResponse = await res.text();
-      let data;
-      try {
-        data = JSON.parse(textResponse);
-      } catch (e) {
-        throw new Error(`Respon server bukan JSON: ${textResponse.substring(0, 100)}`);
-      }
+      const data = await res.json();
 
       if (res.ok && data.success) {
-        // Hapus langsung dari state untuk respon cepat UI
+        // Update tampilan state secara real-time
         setPesanList((prevList) => prevList.filter((item) => item._id !== id));
       } else {
         alert(data.message || 'Gagal menghapus pesan.');
       }
     } catch (err) {
-      console.error(err);
-      alert(`Detail Error: ${err.message}`);
+      console.error('Error saat hapus pesan:', err);
+      alert(`Terjadi kesalahan: ${err.message}`);
     }
   };
 
