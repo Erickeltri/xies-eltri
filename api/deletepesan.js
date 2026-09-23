@@ -12,7 +12,7 @@ async function dbConnect() {
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
     if (!MONGODB_URI) {
-      throw new Error('MONGODB_URI belum dikonfigurasi di Vercel Environment Variables.');
+      throw new Error('MONGODB_URI belum dikonfigurasi di Vercel.');
     }
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
@@ -27,12 +27,11 @@ const PesanSchema = new mongoose.Schema({
   nama: String,
   pesan: String,
   tanggal: String,
-});
+}, { strict: false }); // strict: false agar tidak crash jika ada field beda
 
 const Pesan = mongoose.models.Pesan || mongoose.model('Pesan', PesanSchema);
 
 export default async function handler(req, res) {
-  // Wajib set header JSON
   res.setHeader('Content-Type', 'application/json');
 
   if (req.method !== 'DELETE') {
@@ -49,7 +48,7 @@ export default async function handler(req, res) {
   if (clientSecret !== serverSecret) {
     return res.status(401).json({ 
       success: false, 
-      message: 'Akses ditolak! Kunci rahasia admin salah.' 
+      message: 'Akses ditolak! Kunci rahasia admin tidak cocok.' 
     });
   }
 
@@ -65,14 +64,17 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Format ID pesan tidak valid' 
-      });
+    // Hapus menggunakan query fleksibel ($or untuk ObjectId dan String biasa)
+    let deletedPesan = null;
+
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      deletedPesan = await Pesan.findByIdAndDelete(id);
     }
 
-    const deletedPesan = await Pesan.findByIdAndDelete(id);
+    // Jika tidak ketemu lewat ObjectId, cari lewat filter _id bertipe string
+    if (!deletedPesan) {
+      deletedPesan = await Pesan.findOneAndDelete({ _id: id });
+    }
 
     if (!deletedPesan) {
       return res.status(404).json({ 
