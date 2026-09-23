@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 const MONGODB_URI = process.env.MONGODB_URI;
 
 export default async function handler(req, res) {
+  // Hanya menerima HTTP Method POST
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method tidak diizinkan' });
   }
@@ -15,12 +16,18 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Simpan Pesan ke MongoDB
+    // 1. Koneksi dan Simpan ke MongoDB
     if (mongoose.connection.readyState !== 1) {
       await mongoose.connect(MONGODB_URI, { bufferCommands: false });
     }
 
-    const Pesan = mongoose.models.Pesan || mongoose.model('Pesan', new mongoose.Schema({}, { strict: false, collection: 'pesans' }));
+    const PesanSchema = new mongoose.Schema({
+      nama: String,
+      pesan: String,
+      createdAt: { type: Date, default: Date.now },
+    });
+
+    const Pesan = mongoose.models.Pesan || mongoose.model('Pesan', PesanSchema, 'pesans');
     
     await Pesan.create({
       nama,
@@ -28,15 +35,15 @@ export default async function handler(req, res) {
       createdAt: new Date(),
     });
 
-    // 2. Kirim Notifikasi Email via Nodemailer (Port 465 SSL)
+    // 2. Kirim Email Notifikasi via Nodemailer
     if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
       const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
-        secure: true,
+        secure: true, // Port 465 menggunakan SSL
         auth: {
           user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_PASS, // Pastikan tidak ada spasi: mpaqgalwlgytfnxu
+          pass: process.env.GMAIL_PASS, // Gunakan App Password Gmail tanpa spasi
         },
       });
 
@@ -45,23 +52,24 @@ export default async function handler(req, res) {
         to: process.env.GMAIL_USER,
         subject: `📩 Pesan Baru dari ${nama}`,
         html: `
-          <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-            <h2 style="color: #ff3333;">Pesan Baru Masuk!</h2>
+          <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <h2 style="color: #ff3333; margin-top: 0;">Pesan Baru Diterima!</h2>
             <p><strong>Pengirim:</strong> ${nama}</p>
             <p><strong>Pesan:</strong></p>
-            <blockquote style="background: #f9f9f9; padding: 10px; border-left: 4px solid #ff3333;">
+            <blockquote style="background: #f9f9f9; padding: 12px; border-left: 4px solid #ff3333; margin: 0;">
               ${pesan}
             </blockquote>
-            <p style="font-size: 0.8rem; color: #888;">Waktu: ${new Date().toLocaleString('id-ID')}</p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+            <p style="font-size: 0.8rem; color: #888;">Dikirim pada: ${new Date().toLocaleString('id-ID')}</p>
           </div>
         `,
       });
     }
 
-    return res.status(200).json({ success: true, message: 'Pesan & Email berhasil dikirim!' });
+    return res.status(200).json({ success: true, message: 'Pesan berhasil disimpan dan dikirim via email!' });
 
   } catch (error) {
-    console.error('Error backend:', error);
-    return res.status(500).json({ success: false, message: `Gagal: ${error.message}` });
+    console.error('Error pada kirimpesan.js:', error);
+    return res.status(500).json({ success: false, message: `Gagal memproses pesan: ${error.message}` });
   }
 }
