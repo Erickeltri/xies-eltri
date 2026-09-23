@@ -40,14 +40,13 @@ export default function LoginPesan() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        // Hapus item dari state agar UI langsung ter-update
         setPesanList((prevList) => prevList.filter((item) => item._id !== id));
       } else {
         alert(data.message || 'Gagal menghapus pesan.');
       }
     } catch (err) {
       console.error(err);
-      alert('Terjadi kesalahan saat menghapus pesan.');
+      alert(`Error Client: ${err.message}`);
     }
   };
 
