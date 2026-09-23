@@ -76,7 +76,6 @@ export default function LoginPesan() {
 
       if (response.ok && data.success) {
         setIsLoggedIn(true);
-        // fetchPesan() dipanggil secara otomatis oleh useEffect saat isLoggedIn berubah menjadi true
       } else {
         setErrorMsg(data.message || 'Username atau password salah.');
       }
@@ -112,9 +111,9 @@ export default function LoginPesan() {
           {errorMsg && <p style={styles.error}>{errorMsg}</p>}
 
           {loading && pesanList.length === 0 ? (
-            <p style={{ color: '#ccc' }}>Memuat pesan...</p>
+            <p style={{ color: '#ccc', textAlign: 'center' }}>Memuat pesan...</p>
           ) : pesanList.length === 0 ? (
-            <p style={{ color: '#aaa' }}>Belum ada pesan yang masuk.</p>
+            <p style={{ color: '#aaa', textAlign: 'center' }}>Belum ada pesan yang masuk.</p>
           ) : (
             <div style={styles.tableContainer}>
               <table style={styles.table}>
@@ -195,15 +194,16 @@ export default function LoginPesan() {
   );
 }
 
-// Style Tambahan
+// Style diletakkan di luar komponen agar efisien
 const styles = {
   pageBackground: {
     backgroundColor: '#121212',
-    minHeight: '85vh',
+    minHeight: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '40px 20px',
+    boxSizing: 'border-box',
   },
   card: {
     background: '#1e1e1e',
