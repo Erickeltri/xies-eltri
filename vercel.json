@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/pesan",
+      "destination": "/api/pesan.js"
+    },
+    {
+      "source": "/api/loginpesan",
+      "destination": "/api/loginpesan.js"
+    },
+    {
+      "source": "/api/getpesan",
+      "destination": "/api/getpesan.js"
+    },
+    {
+      "source": "/api/deletepesan",
+      "destination": "/src/pages/api/deletepesan.js"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
