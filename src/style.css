@@ -566,6 +566,16 @@ main.profile-main {
   50% { box-shadow: 0 0 25px rgba(120, 20, 20, 0.35); }
 }
 
+.profile-gpa {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffaa00; /* Warna oranye terang/gold agar menyala di background gelap */
+  text-align: center;
+  margin: 8px 0 12px 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgba(255, 170, 0, 0.4); /* Efek bercahaya halus agar lebih kontras */
+}
+
 /* ===== Animasi Nama Profil ===== */
 .profile-name {
   width: 100%;
