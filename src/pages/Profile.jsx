@@ -29,6 +29,11 @@ export default function Profile() {
           <div className="profile-logo">
             <img src="/images/profile.jpg" alt="Logo" />
           </div>
+
+          {/* IPK Tepat di Bawah Foto Profil */}
+          <div className="profile-gpa">
+            IPK: 3.33
+          </div>
           
           <div className="profile-name">
             ELTRI PUTRA ROMBEBUA
