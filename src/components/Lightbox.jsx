@@ -1,29 +1,40 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-/**
- * Lightbox reusable.
- * Mendukung type: 'image', 'video' (MP4 lokal), dan 'youtube'.
- * Dilengkapi proteksi anti klik kanan & anti drag.
- */
 export default function Lightbox({ type = 'image', src, alt = '', children, className = '' }) {
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [iframeSrc, setIframeSrc] = useState(''); // State khusus untuk YouTube
   const videoRef = useRef(null);
 
+  // Efek saat Lightbox Dibuka / Ditutup
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
+      
       if (type === 'video' && videoRef.current) {
         videoRef.current.play().catch(() => {});
       }
+      
+      // Jika tipe YouTube: Pasang URL tanpa autoplay (video dalam keadaan jeda/pause)
+      if (type === 'youtube') {
+        setIframeSrc(src);
+      }
     } else {
       document.body.style.overflow = '';
+      
+      // Saat ditutup: Kosongkan SRC YouTube seketika agar video PAUSE / MATI TOTAL
+      setIframeSrc('');
+      
+      if (type === 'video' && videoRef.current) {
+        videoRef.current.pause();
+      }
     }
+
     return () => {
       document.body.style.overflow = '';
     };
-  }, [open, type]);
+  }, [open, type, src]);
 
   useEffect(() => {
     function handleKey(e) {
@@ -41,15 +52,8 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
     else v.pause();
   };
 
-  // Handler Anti Klik Kanan
-  const handleContextMenu = (e) => {
-    e.preventDefault();
-  };
-
-  // Handler Anti Drag / Tarik Gambar
-  const handleDragStart = (e) => {
-    e.preventDefault();
-  };
+  const handleContextMenu = (e) => e.preventDefault();
+  const handleDragStart = (e) => e.preventDefault();
 
   const overlay = (
     <div
@@ -111,18 +115,18 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
           </>
         )}
 
-        {/* Render YouTube Embed */}
-{open && type === 'youtube' && (
-  <div className="youtube-fullscreen-wrapper">
-    <iframe
-      src={src}
-      title={alt || 'YouTube Video'}
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    ></iframe>
-  </div>
-)}
+        {/* Render YouTube Embed (Dipause saat buka, mati seketika saat tutup) */}
+        {open && type === 'youtube' && iframeSrc && (
+          <div className="youtube-fullscreen-wrapper">
+            <iframe
+              src={iframeSrc}
+              title={alt || 'YouTube Video'}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
       </div>
     </div>
   );
