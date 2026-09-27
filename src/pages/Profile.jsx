@@ -99,12 +99,27 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* Kotak Foto 1 */}
-          <Lightbox type="image" src="/images/ITS.jpg" alt="Foto 1">
-            <div className="photo-card">
-              <img src="/images/ITS.jpg" alt="Foto 1" />
-            </div>
-          </Lightbox>
+          {/* Kotak Video YouTube 1 */}
+{/* Thumbnail Gambar untuk Membuka Video YouTube di Lightbox */}
+<Lightbox 
+  type="youtube" 
+  src="https://www.youtube.com/embed/mFea21VooJ4?autoplay=1&enablejsapi=1" 
+  alt="Selamat Hari Guru"
+>
+  <div className="photo-card video-card">
+    {/* Gambar Thumbnail Resmi YouTube */}
+    <img 
+      src="https://img.youtube.com/vi/mFea21VooJ4/maxresdefault.jpg" 
+      alt="Selamat Hari Guru" 
+      className="video-thumbnail-img"
+    />
+    
+    {/* Overlay Ikon Play */}
+    <div className="video-play-btn">
+      <div className="video-play-icon"></div>
+    </div>
+  </div>
+</Lightbox>
 
         </div>
 
