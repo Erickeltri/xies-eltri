@@ -1,13 +1,32 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-export default function Lightbox({ type = 'image', src, alt = '', children, className = '' }) {
+/**
+ * Lightbox Component
+ * Support type: 'image', 'video', 'youtube'
+ */
+export default function Lightbox({ 
+  type = 'image', 
+  src, 
+  videoId, 
+  alt = '', 
+  children, 
+  className = '' 
+}) {
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(true);
-  const [iframeSrc, setIframeSrc] = useState(''); // State khusus untuk YouTube
+  const [iframeSrc, setIframeSrc] = useState('');
   const videoRef = useRef(null);
 
-  // Efek saat Lightbox Dibuka / Ditutup
+  // Gunakan VITE_YOUTUBE_EMBED_BASE dari env atau default
+  const embedBaseUrl = import.meta.env.VITE_YOUTUBE_EMBED_BASE || 'https://www.youtube.com/embed';
+  
+  // Rakit URL embed YouTube dari videoId jika kodenya memakai prop videoId
+  const finalSrc = type === 'youtube' && videoId 
+    ? `${embedBaseUrl}/${videoId}` 
+    : src;
+
+  // Handling Buka / Tutup Lightbox
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
@@ -16,15 +35,12 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
         videoRef.current.play().catch(() => {});
       }
       
-      // Jika tipe YouTube: Pasang URL tanpa autoplay (video dalam keadaan jeda/pause)
       if (type === 'youtube') {
-        setIframeSrc(src);
+        setIframeSrc(finalSrc);
       }
     } else {
       document.body.style.overflow = '';
-      
-      // Saat ditutup: Kosongkan SRC YouTube seketika agar video PAUSE / MATI TOTAL
-      setIframeSrc('');
+      setIframeSrc(''); // Hapus iframe src agar playback terhenti instan
       
       if (type === 'video' && videoRef.current) {
         videoRef.current.pause();
@@ -34,8 +50,9 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
     return () => {
       document.body.style.overflow = '';
     };
-  }, [open, type, src]);
+  }, [open, type, finalSrc]);
 
+  // Escape key handler
   useEffect(() => {
     function handleKey(e) {
       if (e.key === 'Escape') setOpen(false);
@@ -76,15 +93,11 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
         {/* Render Gambar */}
         {open && type === 'image' && (
           <img 
-            src={src} 
+            src={finalSrc} 
             alt={alt} 
+            className="lightbox-protected-img"
             onContextMenu={handleContextMenu}
             onDragStart={handleDragStart}
-            style={{ 
-              pointerEvents: 'none', 
-              userSelect: 'none', 
-              WebkitUserSelect: 'none' 
-            }}
           />
         )}
 
@@ -93,14 +106,14 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
           <>
             <video
               ref={videoRef}
-              src={src}
+              src={finalSrc}
               loop
               muted={muted}
               playsInline
               controlsList="nodownload"
+              className="lightbox-video-player"
               onContextMenu={handleContextMenu}
               onClick={toggleVideoPlay}
-              style={{ userSelect: 'none' }}
             />
             <button
               className="fullscreen-mute"
@@ -115,7 +128,7 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
           </>
         )}
 
-        {/* Render YouTube Embed (Dipause saat buka, mati seketika saat tutup) */}
+        {/* Render YouTube Embed */}
         {open && type === 'youtube' && iframeSrc && (
           <div className="youtube-fullscreen-wrapper">
             <iframe
@@ -134,8 +147,7 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
   return (
     <>
       <div 
-        className={className} 
-        style={{ cursor: 'pointer' }} 
+        className={`lightbox-trigger ${className}`}
         onClick={() => setOpen(true)}
       >
         {children}
