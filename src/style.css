@@ -1891,3 +1891,19 @@ body:has(.loading-overlay) {
   /* Boleh tambahkan margin-right jika layout horizontal: */
   /* margin-right: 16px; */
 }
+
+/* Proteksi gambar & cursor di Lightbox */
+.lightbox-trigger {
+  cursor: pointer;
+}
+
+.lightbox-protected-img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.lightbox-video-player {
+  user-select: none;
+  -webkit-user-select: none;
+}
