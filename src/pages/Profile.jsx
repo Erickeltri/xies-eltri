@@ -107,7 +107,7 @@ export default function Profile() {
 >
   <div className="photo-card video-card">
     <img 
-      src="https://img.youtube.com/vi/mFea21VooJ4/maxresdefault.jpg" 
+      src="/images/end.jpg" 
       alt="Selamat Hari Guru" 
       className="video-thumbnail-img"
     />
