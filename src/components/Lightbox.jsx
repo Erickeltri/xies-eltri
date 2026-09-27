@@ -3,7 +3,8 @@ import { createPortal } from 'react-dom';
 
 /**
  * Lightbox reusable.
- * Sudah dilengkapi proteksi anti klik kanan (Save image as) & anti-drag.
+ * Mendukung type: 'image', 'video' (MP4 lokal), dan 'youtube'.
+ * Dilengkapi proteksi anti klik kanan & anti drag.
  */
 export default function Lightbox({ type = 'image', src, alt = '', children, className = '' }) {
   const [open, setOpen] = useState(false);
@@ -68,6 +69,7 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
       </button>
 
       <div className="fullscreen-content" onClick={(e) => e.stopPropagation()}>
+        {/* Render Gambar */}
         {open && type === 'image' && (
           <img 
             src={src} 
@@ -81,6 +83,8 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
             }}
           />
         )}
+
+        {/* Render Video MP4 Lokal */}
         {open && type === 'video' && (
           <>
             <video
@@ -106,6 +110,19 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
             </button>
           </>
         )}
+
+        {/* Render YouTube Embed */}
+{open && type === 'youtube' && (
+  <div className="youtube-fullscreen-wrapper">
+    <iframe
+      src={src}
+      title={alt || 'YouTube Video'}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    ></iframe>
+  </div>
+)}
       </div>
     </div>
   );
@@ -114,7 +131,7 @@ export default function Lightbox({ type = 'image', src, alt = '', children, clas
     <>
       <div 
         className={className} 
-        style={{ cursor: 'zoom-in' }} 
+        style={{ cursor: 'pointer' }} 
         onClick={() => setOpen(true)}
       >
         {children}
