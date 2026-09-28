@@ -12,7 +12,7 @@
 
   --bg-gallery: url('/images/buku.jpg');
   --bg-home: url('/images/katolik.jpg');
-  --bg-profile: url('/images/buku.jpg');
+  --bg-profile: #121212;
   --bg-profile-name: url('/images/ariel2.jpg');
   --bg-profile-edu: url('/images/ariel.jpg');
 }
@@ -385,60 +385,123 @@ main{
   }
 }
 
-.fullscreen-overlay{
+/* FULLSCREEN OVERLAY (BACKGROUND) */
+.fullscreen-overlay {
   position: fixed;
   inset: 0;
   background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(10px); /* Efek blur halus di background */
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1000;
+  z-index: 99999; /* Z-index tinggi agar di atas semua navbar */
   padding: 40px;
 }
 
-.fullscreen-overlay.is-open{
+.fullscreen-overlay.is-open {
   opacity: 1;
   visibility: visible;
 }
 
-.fullscreen-content{
-  max-width: min(90vw, 1920px);
-  max-height: min(90vh, 1080px);
-  border-radius: 5%;
-  overflow: hidden;
+/* CONTAINER KONTEN LIGHTBOX */
+.fullscreen-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 12px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   transform: scale(0.85);
   opacity: 0;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
 }
 
-.fullscreen-overlay.is-open .fullscreen-content{
+.fullscreen-overlay.is-open .fullscreen-content {
   transform: scale(1);
   opacity: 1;
 }
 
-.fullscreen-mute{
+/* GAMBAR & VIDEO DI DALAM LIGHTBOX */
+.fullscreen-content img,
+.fullscreen-content video,
+.lightbox-protected-img,
+.lightbox-video-player {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain; /* Memastikan media utuh & tidak terpotong */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* WRAPPER KHUSUS YOUTUBE EMBED */
+.youtube-fullscreen-wrapper {
+  width: 85vw;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.youtube-fullscreen-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* TOMBOL CLOSE */
+.fullscreen-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: none;
+  border: none;
+  color: #f6f4ef;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 100000;
+  transition: opacity 0.2s ease;
+}
+
+.fullscreen-close:hover {
+  opacity: 0.7;
+}
+
+/* TOMBOL MUTE VIDEO */
+.fullscreen-mute {
   position: absolute;
   bottom: 16px;
   right: 16px;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: none;
-  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 10, 10, 0.7);
   color: #f6f4ef;
   font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
 }
 
-.fullscreen-playicon{
+.fullscreen-mute:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* TOMBOL PLAY ICON (JIKA DIPAKAI) */
+.fullscreen-playicon {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -455,32 +518,23 @@ main{
   pointer-events: none;
 }
 
-.fullscreen-content img,
-.fullscreen-content video{
-  max-width: min(90vw, 1920px);
-  max-height: min(90vh, 1080px);
-  width: auto;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  border-radius: 5%;
-}
-
-.fullscreen-close{
-  position: absolute;
-  top: 24px;
-  right: 32px;
-  background: none;
-  border: none;
-  color: #f6f4ef;
-  font-size: 2.4rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-@media (max-width: 640px){
-  .fullscreen-overlay{ padding: 16px; }
-  .fullscreen-close{ top: 14px; right: 18px; font-size: 2rem; }
+/* RESPONSIF MOBILE */
+@media (max-width: 640px) {
+  .fullscreen-overlay {
+    padding: 16px;
+  }
+  .fullscreen-close {
+    top: 16px;
+    right: 20px;
+    font-size: 2.2rem;
+  }
+  .fullscreen-content img,
+  .fullscreen-content video,
+  .lightbox-protected-img,
+  .lightbox-video-player {
+    max-width: 95vw;
+    max-height: 75vh;
+  }
 }
 
 /* ===== Layout Utama Profil (Background Tetap / Tanpa Zoom) ===== */
@@ -490,7 +544,7 @@ main.profile-main {
   justify-content: center;
   align-items: flex-start;
   min-height: calc(100vh - 130px);
-  padding: 90px 20px 40px 20px;
+  padding: 90px 30px 40px 30px;
   
   /* Background Utama Tanpa Efek Zoom */
   background-image: linear-gradient(
@@ -509,7 +563,7 @@ main.profile-main {
   position: relative;
   z-index: 1;
   display: flex;
-  gap: 35px;
+  gap: 40px;
   max-width: 1100px;
   width: 100%;
   padding: 0 16px;
@@ -818,7 +872,7 @@ main.profile-main {
   height: 18px;
   object-fit: contain;
 }
-
+  
 .code-window-body {
   padding: 18px 16px;
   color: #d4d4d4;
@@ -991,93 +1045,205 @@ main.profile-main {
 
   
 }
-
-main.alamat-main{
+/* Pembungkus Utama Alamat */
+.alamat-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121212 !important;
+  background-image: none !important;
+  color: #ffffff;
   display: flex;
-  align-items: flex-start;
-  gap: 32px;
-  padding: 50px 40px;
-  background-image: none;
-  min-height: auto;
+  flex-direction: column;
+}
+
+/* BANNER HERO ATAS */
+.alamat-hero {
+  width: 100%;
+  padding: 50px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/foto1.jpg') center/cover no-repeat !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.breadcrumb-pill {
+  background-color: #ffffff;
+  color: #e50914;
+  padding: 6px 28px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.breadcrumb-pill .active {
+  color: #e50914;
+}
+
+/* AREA KONTEN UTAMA (DESKTOP) */
+.alamat-main {
+  width: 100%;
+  flex: 1;
+  background-color: #121212 !important;
+  background-image: none !important;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Nempel rapi ke atas */
+  padding: 40px 20px 80px 20px;
+}
+
+.alamat-container {
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
 }
 
-.alamat-photo{
-  flex: 0 0 352px;
+/* Komponen Konten Alamat */
+.alamat-photo {
+  flex: 0 0 350px;
   aspect-ratio: 4 / 3;
-  border: 1.5px solid var(--line);
-  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
   overflow: hidden;
-  background: #e8e5dd;
+  background: #000000;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 
-.alamat-photo img{
+.alamat-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.alamat-info{
+.alamat-info {
   flex: 1;
-  padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.alamat-name{
-  font-size: 1rem;
+.alamat-name {
+  font-size: 1.25rem;
   font-weight: 700;
   display: inline-block;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 4px;
-  margin-bottom: 12px;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+  color: #ffffff;
+  margin-top: 0;
 }
 
-.alamat-desc{
-  font-size: 0.8rem;
+.alamat-desc {
+  font-size: 0.9rem;
   line-height: 1.6;
-  color: var(--muted);
-  max-width: 56ch;
-  margin-bottom: 16px;
+  color: #b3b3b3;
+  margin-bottom: 20px;
 }
 
-.alamat-location{
+.alamat-location {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: var(--accent);
+  gap: 8px;
+  color: #ffffff;
+  background-color: #e50914;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-decoration: none;
-  border-bottom: 1.5px solid var(--accent);
-  padding-bottom: 2px;
+  padding: 8px 18px;
+  border-radius: 6px;
   width: fit-content;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
 }
 
-.alamat-location svg{
+.alamat-location svg {
   width: 16px;
   height: 16px;
 }
 
-.alamat-location:hover{
-  opacity: 0.75;
+.alamat-location:hover {
+  background-color: #b80710;
+  transform: translateY(-2px);
 }
 
-@media (max-width: 760px){
-  main.alamat-main{
-    flex-direction: column;
-    padding: 40px 20px;
-    gap: 20px;
+/* =================================================== */
+/* RESPONSIVE MOBILE (ANDROID & IPHONE) */
+/* =================================================== */
+@media (max-width: 768px) {
+  .alamat-hero {
+    padding: 30px 15px 20px 15px;
   }
 
-  .alamat-photo{
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .alamat-main {
+    padding: 20px 16px 40px 16px;
+  }
+
+  .alamat-container {
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .alamat-photo {
     flex: none;
     width: 100%;
-    max-width: 352px;
-    margin: 0 auto;
+    max-width: 280px; /* Ukuran gambar pas di layar HP */
+    border-radius: 10px;
   }
-}
 
+  .alamat-info {
+    align-items: center;
+    width: 100%;
+  }
+
+  .alamat-name {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+  }
+
+  .alamat-desc {
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .alamat-location {
+    font-size: 0.78rem;
+    padding: 7px 16px;
+    border-radius: 6px;
+  }
+} 
 /* ===== Mobile hamburger menu & sidebar ===== */
 .menu-toggle{
   display: none;
@@ -1953,29 +2119,426 @@ body:has(.loading-overlay) {
   }
 }
 
-.img-box {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3; /* Sesuaikan rasio gambar kamu */
-  background: linear-gradient(90deg, #1f1f1f 25%, #2d2d2d 50%, #1f1f1f 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+/* Container Utama Page */
+.customize-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Banner Hero Header Atas (Mirip Referensi Gambar 2) */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), url('/images/foto1.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.hero-overlay {
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Breadcrumb Box Putih Melayang */
+.breadcrumb-box {
+  display: inline-block;
+  background: #ffffff;
+  color: #333333;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.breadcrumb-box .active {
+  color: #ff3333;
+}
+
+/* Container Grid */
+.customize-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 20px 60px 20px;
+}
+
+.customize-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* Tampilan Card Modern (Bersih & Rapi) */
+.customize-card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2c2c2c;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.customize-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  border-color: #444444;
+}
+
+/* Media/Gambar */
+.card-media-wrapper {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #000000;
+  cursor: pointer;
+}
+
+.card-image, .card-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.customize-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+/* Info Detail Card */
+.card-content {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #1e1e1e;
+  flex-grow: 1;
+}
+
+.card-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+}
+
+.card-tag {
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.card-date {
+  color: #aaaaaa;
+}
+
+.card-caption {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f1f1;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsif Mobile */
+@media (max-width: 600px) {
+  .hero-banner {
+    height: 180px;
+  }
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .customize-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   STYLE UTAMA HALAMAN ABOUT
+   ========================================================= */
+
+/* Pembungkus Utama Seluruh Halaman */
+.customize-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Memastikan Banner di atas, Grid Konten di bawah */
+  background-color: #121212;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* 1. BANNER HERO HEADER (ATAS) */
+.customize-hero {
+  width: 100%;
+  padding: 50px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/foto1.jpg') center/cover no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Judul Banner Utama */
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Tombol Oval Pill Kapsul (Hanya About) */
+.breadcrumb-pill {
+  background-color: #ffffff;
+  color: #e50914; /* Warna teks merah */
+  padding: 6px 28px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.breadcrumb-pill .active {
+  color: #e50914;
+}
+
+/* 2. AREA GRID CARD GALLERY (DI BAWAH BANNER) */
+.customize-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px 80px 20px;
+  box-sizing: border-box;
+}
+
+/* DESKTOP: Tetap 3 Kolom */
+.customize-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Dikunci 3 kolom untuk desktop */
+  gap: 24px;
+  width: 100%;
+}
+
+/* Card Styling */
+.customize-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.customize-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+  border-color: #444;
+}
+
+/* Media (Gambar / Video) */
+.media-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.card-img, 
+.card-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.customize-card:hover .card-img {
+  transform: scale(1.05);
+}
+
+/* Info Detail di Bawah Media */
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.card-tag {
+  color: #888888;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.card-date {
+  color: #aaaaaa;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+/* MOBILE (iPhone / Android): Dikunci 2 Kolom */
+@media (max-width: 768px) {
+  .customize-hero {
+    padding: 35px 15px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .customize-container {
+    padding: 20px 10px 60px 10px; /* Padding samping diperkecil agar pas */
+  }
+
+  .customize-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 Kolom untuk HP */
+    gap: 12px; /* Jarak antar kartu disesuaikan untuk layar HP */
+  }
+
+  .media-container {
+    height: 120px; /* Tinggi media disesuaikan agar proporsional di 2 kolom HP */
+  }
+
+  .card-body {
+    padding: 10px;
+    gap: 4px;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+  }
+
+  .card-meta {
+    font-size: 0.65rem;
+  }
+}
+
+
+ /* Pembungkus Utama Profil */
+.profile-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121212 !important;
+  background-image: none !important;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* BANNER HERO ATAS (PROFIL) */
+.profile-hero {
+  width: 100%;
+  padding: 50px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/foto1.jpg') center/cover no-repeat !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.breadcrumb-pill {
+  background-color: #ffffff;
+  color: #e50914;
+  padding: 6px 28px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.breadcrumb-pill .active {
+  color: #e50914;
+}
+
+/* KONTEN UTAMA PROFIL (BAGIAN BISA SCROLL - HITAM PEKAT) */
+main.profile-main {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  flex: 1;
+  padding: 40px 20px 80px 20px; /* Padding atas diperkecil dari 90px ke 40px agar dekat dengan banner */
+  background-color: #121212 !important;
+  background-image: none !important;
+  box-sizing: border-box;
+}
+
+/* Responsive Mobile */
+@media (max-width: 820px) {
+  .profile-hero {
+    padding: 35px 15px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  main.profile-main {
+    padding: 24px 16px 40px 16px;
   }
 }
