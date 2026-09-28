@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 export default function Loading({ progress = 0 }) {
-  const [status, setStatus] = useState('CONNECTING TO SERVER...');
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setStatus('AUTHENTICATING NETWORK...'), 800);
-    const t2 = setTimeout(() => setStatus('ESTABLISHING SECURE CONNECTION...'), 1600);
-    const t3 = setTimeout(() => setStatus('DOWNLOADING PROFILE DATA...'), 2500);
-    const t4 = setTimeout(() => setStatus('VERIFYING ENCRYPTION KEYS...'), 3400);
-    const t5 = setTimeout(() => setStatus('FINALIZING SYNCHRONIZATION...'), 4200);
-    const t6 = setTimeout(() => setStatus('CONNECTION ESTABLISHED!'), 4750);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-      clearTimeout(t5);
-      clearTimeout(t6);
-    };
-  }, []);
+  // Menentukan status teks berdasarkan range persentase progress
+  const getStatusText = (pct) => {
+    if (pct < 15) return 'CONNECTING TO SERVER...';
+    if (pct < 35) return 'AUTHENTICATING NETWORK...';
+    if (pct < 60) return 'ESTABLISHING SECURE CONNECTION...';
+    if (pct < 80) return 'DOWNLOADING PROFILE DATA...';
+    if (pct < 99) return 'VERIFYING ENCRYPTION KEYS...';
+    if (pct < 100) return 'FINALIZING SYNCHRONIZATION...';
+    return 'CONNECTION ESTABLISHED!';
+  };
 
   const isComplete = progress === 100;
+  const currentStatus = getStatusText(progress);
 
   return (
     <div className="loading-overlay">
@@ -34,14 +26,14 @@ export default function Loading({ progress = 0 }) {
 
         <div className="server-status-container">
           <p className={`loading-text ${isComplete ? 'complete-glow' : ''}`}>
-            {status}
+            {currentStatus}
           </p>
           <div className="progress-bar-bg">
             <div 
               className="progress-bar-fill" 
               style={{ 
                 width: `${progress}%`,
-                transition: 'width 0.6s cubic-bezier(0.25, 1, 0.5, 1)'
+                transition: 'width 0.2s ease-out'
               }}
             ></div>
           </div>
