@@ -4,14 +4,23 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY;
 
 export default async function handler(req, res) {
+  // 1. Header Keamanan & CORS
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // 1. Validasi HTTP Method (Hanya izinkan DELETE)
+  // Tangani Preflight OPTIONS Request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // 2. Validasi HTTP Method (Hanya izinkan DELETE)
   if (req.method !== 'DELETE') {
     return res.status(405).json({ success: false, message: 'Method tidak diizinkan' });
   }
 
-  // 2. Proteksi Autentikasi Menggunakan ADMIN_SECRET_KEY dari Vercel
+  // 3. Proteksi Autentikasi Menggunakan Bearer Token / Query Param
   const authHeader = req.headers.authorization;
   const tokenFromHeader = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader;
   const tokenFromQuery = req.query.key || req.query.pass;
@@ -25,7 +34,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // 3. Validasi MONGODB_URI
+  // 4. Validasi MONGODB_URI
   if (!MONGODB_URI) {
     return res.status(500).json({
       success: false,
@@ -73,7 +82,7 @@ export default async function handler(req, res) {
     if (!deleteResult) {
       return res.status(404).json({
         success: false,
-        message: `Pesan dengan ID ${id} tidak ditemukan di collection ${targetCollection}`
+        message: `Pesan dengan ID ${id} tidak ditemukan`
       });
     }
 
@@ -86,7 +95,7 @@ export default async function handler(req, res) {
     console.error('API Delete Error:', error);
     return res.status(500).json({
       success: false,
-      message: `Server Error: ${error.message}`
+      message: 'Server Error saat menghapus pesan.'
     });
   }
 }
