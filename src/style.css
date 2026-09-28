@@ -1056,7 +1056,7 @@ main.profile-main {
   flex-direction: column;
 }
 
-/* BANNER HERO ATAS */
+/* BANNER HERO ATAS (HANYA DI SINI ADA GAMBAR) */
 .alamat-hero {
   width: 100%;
   padding: 50px 20px;
@@ -1098,26 +1098,27 @@ main.profile-main {
   color: #e50914;
 }
 
-/* AREA KONTEN UTAMA (DESKTOP) */
+/* AREA KONTEN UTAMA - HITAM SOLID TANPA GAMBAR */
 .alamat-main {
   width: 100%;
   flex: 1;
   background-color: #121212 !important;
   background-image: none !important;
   box-sizing: border-box;
+
+  /* TAMBAHKAN / SESUAIKAN BARIS DI BAWAH INI */
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Nempel rapi ke atas */
-  padding: 40px 20px 80px 20px;
+  align-items: flex-start; /* Memaksa konten nempel ke atas, tidak melayang di tengah */
+  padding: 40px 20px 80px 20px; /* Padding atas disamakan dengan profile (40px) */
 }
 
 .alamat-container {
   max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
+  margin: 0 auto; /* Jika ingin lebih naik lagi ke atas, ubah jadi: margin: -10px auto 0 auto; */
   display: flex;
   gap: 36px;
-  align-items: flex-start;
+  align-items: flex-start; /* Mengubah dari 'center' ke 'flex-start' agar konten langsung nempel ke atas */
 }
 
 /* Komponen Konten Alamat */
@@ -1190,20 +1191,17 @@ main.profile-main {
   transform: translateY(-2px);
 }
 
-/* =================================================== */
-/* RESPONSIVE MOBILE (ANDROID & IPHONE) */
-/* =================================================== */
+/* Responsive Style */
 @media (max-width: 768px) {
   .alamat-hero {
-    padding: 30px 15px 20px 15px;
+    padding: 35px 15px;
   }
 
   .hero-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
-
   .alamat-main {
-    padding: 20px 16px 40px 16px;
+    padding: 24px 16px 40px 16px;
   }
 
   .alamat-container {
@@ -1211,14 +1209,13 @@ main.profile-main {
     padding: 0;
     align-items: center;
     text-align: center;
-    gap: 16px;
+    gap: 20px;
   }
 
   .alamat-photo {
     flex: none;
     width: 100%;
-    max-width: 280px; /* Ukuran gambar pas di layar HP */
-    border-radius: 10px;
+    max-width: 300px; /* Ukuran gambar dibuat pas di layar HP */
   }
 
   .alamat-info {
@@ -1227,23 +1224,20 @@ main.profile-main {
   }
 
   .alamat-name {
-    font-size: 1rem;
-    margin-bottom: 8px;
-    padding-bottom: 4px;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
   }
 
   .alamat-desc {
-    font-size: 0.8rem;
-    margin-bottom: 14px;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
   }
 
   .alamat-location {
-    font-size: 0.78rem;
-    padding: 7px 16px;
-    border-radius: 6px;
+    font-size: 0.8rem;
+    padding: 8px 16px;
   }
-} 
+}
 /* ===== Mobile hamburger menu & sidebar ===== */
 .menu-toggle{
   display: none;
