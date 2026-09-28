@@ -1,33 +1,47 @@
 import React, { useState, useEffect } from 'react';
 
 export default function LoginPesan() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(() => localStorage.getItem('adminToken') || '');
+  const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('adminToken'));
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [pesanList, setPesanList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Auto-fetch saat komponen terpasang dan status login aktif
+  // Auto-fetch saat status login aktif atau token berubah
   useEffect(() => {
-    if (isLoggedIn) {
-      fetchPesan();
+    if (isLoggedIn && token) {
+      fetchPesan(token);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, token]);
 
-  const fetchPesan = async () => {
+  // --- FUNGSI FETCH ALL PESAN ---
+  const fetchPesan = async (activeToken = token) => {
     setLoading(true);
     setErrorMsg('');
     try {
-      const res = await fetch('/api/getpesan');
+      const res = await fetch('/api/getpesan', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${activeToken}`, // Mengirimkan Token Auth
+        },
+      });
+
       const result = await res.json();
+
       if (res.ok && result.success) {
-        setPesanList(result.data);
+        setPesanList(result.data || []);
       } else {
-        setErrorMsg('Gagal mengambil history pesan.');
+        setErrorMsg(result.message || 'Gagal mengambil history pesan.');
+        if (res.status === 401) {
+          // Jika token kadaluarsa / salah, otomatis logout
+          handleLogout();
+        }
       }
     } catch (err) {
-      console.error(err);
+      console.error('Fetch Pesan Error:', err);
       setErrorMsg('Kesalahan jaringan saat memuat pesan.');
     } finally {
       setLoading(false);
@@ -42,14 +56,15 @@ export default function LoginPesan() {
       const res = await fetch(`/api/deletepesan?id=${id}`, {
         method: 'DELETE',
         headers: {
-          'x-admin-secret': 'SangatRahasia123',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Mengirimkan Token Auth
         },
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        // Update tampilan state secara real-time
+        // Update tampilan tabel secara real-time
         setPesanList((prevList) => prevList.filter((item) => item._id !== id));
       } else {
         alert(data.message || 'Gagal menghapus pesan.');
@@ -60,6 +75,7 @@ export default function LoginPesan() {
     }
   };
 
+  // --- FUNGSI LOGIN ---
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,20 +90,26 @@ export default function LoginPesan() {
 
       const data = await response.json();
 
-      if (response.ok && data.success) {
+      if (response.ok && data.success && data.token) {
+        // Simpan token ke localStorage & State
+        localStorage.setItem('adminToken', data.token);
+        setToken(data.token);
         setIsLoggedIn(true);
       } else {
         setErrorMsg(data.message || 'Username atau password salah.');
       }
     } catch (err) {
-      console.error(err);
+      console.error('Login Error:', err);
       setErrorMsg('Terjadi kesalahan koneksi.');
     } finally {
       setLoading(false);
     }
   };
 
+  // --- FUNGSI LOGOUT ---
   const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setToken('');
     setIsLoggedIn(false);
     setUsername('');
     setPassword('');
@@ -101,7 +123,7 @@ export default function LoginPesan() {
           <div style={styles.header}>
             <h2 style={styles.dashboardTitle}>History Pesan Masuk</h2>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <button onClick={fetchPesan} style={styles.refreshBtn} disabled={loading}>
+              <button onClick={() => fetchPesan(token)} style={styles.refreshBtn} disabled={loading}>
                 {loading ? 'Refreshing...' : '🔄 Refresh'}
               </button>
               <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
@@ -194,7 +216,6 @@ export default function LoginPesan() {
   );
 }
 
-// Style yang sudah dioptimalkan untuk Desktop & Mobile (iOS / Android)
 const styles = {
   pageBackground: {
     backgroundColor: '#121212',
@@ -202,15 +223,15 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '20px 12px', // Padding lebih kecil di mobile agar area konten lebih luas
+    padding: '20px 12px',
     boxSizing: 'border-box',
-    WebkitFontSmoothing: 'antialiased', // Render teks lebih halus di iPhone/Safari
+    WebkitFontSmoothing: 'antialiased',
   },
   card: {
     background: '#1e1e1e',
     border: '1px solid #333',
-    padding: '24px 20px', // Padding menyesuaikan layar HP
-    borderRadius: '12px', // Corner lebih smooth modern
+    padding: '24px 20px',
+    borderRadius: '12px',
     width: '100%',
     maxWidth: '400px',
     display: 'flex',
@@ -222,7 +243,7 @@ const styles = {
   dashboardCard: {
     background: '#1e1e1e',
     border: '1px solid #333',
-    padding: '24px 16px', // Fleksibel untuk mobile & desktop
+    padding: '24px 16px',
     borderRadius: '12px',
     width: '100%',
     maxWidth: '1000px',
@@ -232,7 +253,7 @@ const styles = {
   header: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap', // Agar header otomatis turun rapi jika di layar HP yang sangat sempit
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '12px',
@@ -262,12 +283,12 @@ const styles = {
     fontWeight: '500',
   },
   input: {
-    padding: '12px 14px', // Touch-friendly untuk layar sentuh HP
+    padding: '12px 14px',
     borderRadius: '6px',
     border: '1px solid #444',
     background: '#2a2a2a',
     color: '#ffffff',
-    fontSize: '1rem', // Minimal 16px agar Safari/iPhone tidak auto-zoom saat diklik
+    fontSize: '1rem',
     outline: 'none',
     boxSizing: 'border-box',
     width: '100%',
@@ -282,7 +303,7 @@ const styles = {
     fontWeight: 'bold',
     fontSize: '1rem',
     cursor: 'pointer',
-    WebkitTapHighlightColor: 'transparent', // Menghilangkan highlight biru saat ditap di HP
+    WebkitTapHighlightColor: 'transparent',
   },
   refreshBtn: {
     padding: '8px 16px',
@@ -309,7 +330,7 @@ const styles = {
     WebkitTapHighlightColor: 'transparent',
   },
   deleteBtn: {
-    padding: '6px 12px', // Diperbesar sedikit agar mudah ditekan di HP
+    padding: '6px 12px',
     background: '#d32f2f',
     color: '#fff',
     border: 'none',
@@ -326,8 +347,8 @@ const styles = {
     margin: '0 0 10px 0' 
   },
   tableContainer: { 
-    overflowX: 'auto', // Scroll horizontal halus di iPhone/Android
-    WebkitOverflowScrolling: 'touch', // Kinetic scroll halus untuk iOS Safari
+    overflowX: 'auto',
+    WebkitOverflowScrolling: 'touch',
     borderRadius: '6px',
     border: '1px solid #333',
   },
@@ -335,7 +356,7 @@ const styles = {
     width: '100%', 
     borderCollapse: 'collapse', 
     color: '#e0e0e0',
-    minWidth: '600px', // Mencegah isi tabel berdesakan/hancur di layar HP
+    minWidth: '600px',
   },
   th: { 
     borderBottom: '2px solid #444', 
