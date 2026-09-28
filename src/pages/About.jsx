@@ -1,21 +1,35 @@
 import Lightbox from '../components/Lightbox';
 
 const galleryItems = [
-  { type: 'image', src: '/images/foto1.jpg', caption: 'Kota makassar' },
-  { type: 'image', src: '/images/foto2.jpg', caption: 'itu saya kecil lama' },
-  { type: 'image', src: '/images/sad.jpg', caption: 'bantu aku' },
+  { 
+    type: 'image', 
+    src: '/images/foto1.jpg', 
+    caption: 'Kota makassar',
+    date: '10 Mei 2026' 
+  },
+  { 
+    type: 'image', 
+    src: '/images/foto2.jpg', 
+    caption: 'itu saya kecil lama',
+    date: '20 Maret 2007' 
+  },
+  { 
+    type: 'image', 
+    src: '/images/sad.jpg', 
+    caption: 'bantu aku',
+    date: '28 Desember 1999' 
+  },
+  { 
+    type: 'image', 
+    src: '/images/foto3.jpg',
+    caption: 'itu kamar tidur saya',
+    date: '27 September 2026'
+  }
 ];
 
 export default function About() {
-  // Mencegah Klik Kanan di Seluruh Area Galeri
-  const handleContextMenu = (e) => {
-    e.preventDefault();
-  };
-
-  // Mencegah Gambar Ditarik / Drag
-  const handleDragStart = (e) => {
-    e.preventDefault();
-  };
+  const handleContextMenu = (e) => e.preventDefault();
+  const handleDragStart = (e) => e.preventDefault();
 
   return (
     <main className="gallery-main" onContextMenu={handleContextMenu}>
@@ -28,13 +42,16 @@ export default function About() {
           <div className="gallery-item" key={idx}>
             <Lightbox type={item.type} src={item.src} alt={item.caption} className="media-wrap">
               {item.type === 'image' ? (
-                <img 
-                  src={item.src} 
-                  alt={item.caption} 
-                  onContextMenu={handleContextMenu}
-                  onDragStart={handleDragStart}
-                  style={{ pointerEvents: 'none' }} /* Mematikan interaksi mouse langsung ke gambar */
-                />
+                <div className="img-box">
+                  <img 
+                    src={item.src} 
+                    alt={item.caption}
+                    loading="lazy"
+                    onContextMenu={handleContextMenu}
+                    onDragStart={handleDragStart}
+                    style={{ pointerEvents: 'none' }}
+                  />
+                </div>
               ) : (
                 <video 
                   src={item.src} 
@@ -42,12 +59,16 @@ export default function About() {
                   muted 
                   loop 
                   playsInline 
-                  controlsList="nodownload" /* Menghilangkan tombol download bawaan video */
+                  controlsList="nodownload"
                   onContextMenu={handleContextMenu}
                 />
               )}
             </Lightbox>
-            <div className="gallery-caption">{item.caption}</div>
+
+            <div className="gallery-info">
+              <div className="gallery-caption">{item.caption}</div>
+              {item.date && <div className="gallery-date">{item.date}</div>}
+            </div>
           </div>
         ))}
       </div>
