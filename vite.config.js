@@ -33,9 +33,19 @@ export default defineConfig({
         },
         apply: 'build',
       }),
-      enforce: 'post', // 👈 KUNCI FIX: Memaksa obfuscator berjalan di akhir setelah semua JSX diubah menjadi JS standar
+      enforce: 'post', // Memaksa obfuscator berjalan di akhir setelah semua JSX diubah menjadi JS standar
     },
   ],
+  // ── KUNCI FIX: Menghapus Data Log Metadata Vercel Yang Bocor di Browser ──
+  define: {
+    'import.meta.env.VITE_VERCEL_GIT_COMMIT_AUTHOR_LOGIN': JSON.stringify(''),
+    'import.meta.env.VITE_VERCEL_GIT_COMMIT_AUTHOR_NAME': JSON.stringify(''),
+    'import.meta.env.VITE_VERCEL_GIT_COMMIT_MESSAGE': JSON.stringify(''),
+    'import.meta.env.VITE_VERCEL_GIT_REPO_OWNER': JSON.stringify(''),
+    'import.meta.env.VITE_VERCEL_GIT_REPO_SLUG': JSON.stringify(''),
+    'import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA': JSON.stringify(''),
+    'import.meta.env.VITE_VERCEL_GIT_PROVIDER': JSON.stringify(''),
+  },
   build: {
     sourcemap: false, // Mematikan source map agar teks asli tidak direkonstruksi
     minify: 'terser', // Menggunakan Terser untuk menghancurkan susunan struktur fungsi JS
