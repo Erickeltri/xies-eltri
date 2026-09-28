@@ -194,7 +194,7 @@ export default function LoginPesan() {
   );
 }
 
-// Style diletakkan di luar komponen agar efisien
+// Style yang sudah dioptimalkan untuk Desktop & Mobile (iOS / Android)
 const styles = {
   pageBackground: {
     backgroundColor: '#121212',
@@ -202,86 +202,154 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '40px 20px',
+    padding: '20px 12px', // Padding lebih kecil di mobile agar area konten lebih luas
     boxSizing: 'border-box',
+    WebkitFontSmoothing: 'antialiased', // Render teks lebih halus di iPhone/Safari
   },
   card: {
     background: '#1e1e1e',
     border: '1px solid #333',
-    padding: '32px',
-    borderRadius: '8px',
+    padding: '24px 20px', // Padding menyesuaikan layar HP
+    borderRadius: '12px', // Corner lebih smooth modern
     width: '100%',
-    maxWidth: '380px',
+    maxWidth: '400px',
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
-    boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.6)',
+    boxSizing: 'border-box',
   },
   dashboardCard: {
     background: '#1e1e1e',
     border: '1px solid #333',
-    padding: '28px',
-    borderRadius: '8px',
+    padding: '24px 16px', // Fleksibel untuk mobile & desktop
+    borderRadius: '12px',
     width: '100%',
-    maxWidth: '900px',
-    boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+    maxWidth: '1000px',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.6)',
+    boxSizing: 'border-box',
   },
   header: {
     display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap', // Agar header otomatis turun rapi jika di layar HP yang sangat sempit
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: '12px',
     marginBottom: '20px',
   },
-  title: { color: '#ffffff', textAlign: 'center', marginBottom: '8px', fontSize: '1.4rem' },
-  dashboardTitle: { color: '#ffffff', fontSize: '1.3rem' },
-  inputGroup: { display: 'flex', flexDirection: 'column', gap: '6px' },
-  label: { color: '#cccccc', fontSize: '0.85rem' },
+  title: { 
+    color: '#ffffff', 
+    textAlign: 'center', 
+    marginBottom: '8px', 
+    fontSize: '1.4rem',
+    fontWeight: '600',
+  },
+  dashboardTitle: { 
+    color: '#ffffff', 
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    margin: 0,
+  },
+  inputGroup: { 
+    display: 'flex', 
+    flexDirection: 'column', 
+    gap: '6px' 
+  },
+  label: { 
+    color: '#cccccc', 
+    fontSize: '0.85rem',
+    fontWeight: '500',
+  },
   input: {
-    padding: '10px 12px',
-    borderRadius: '4px',
+    padding: '12px 14px', // Touch-friendly untuk layar sentuh HP
+    borderRadius: '6px',
     border: '1px solid #444',
     background: '#2a2a2a',
     color: '#ffffff',
+    fontSize: '1rem', // Minimal 16px agar Safari/iPhone tidak auto-zoom saat diklik
     outline: 'none',
+    boxSizing: 'border-box',
+    width: '100%',
   },
   button: {
-    padding: '10px',
+    padding: '12px',
     marginTop: '10px',
     background: '#ff3333',
     color: '#fff',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '6px',
     fontWeight: 'bold',
+    fontSize: '1rem',
     cursor: 'pointer',
+    WebkitTapHighlightColor: 'transparent', // Menghilangkan highlight biru saat ditap di HP
   },
   refreshBtn: {
-    padding: '6px 14px',
+    padding: '8px 16px',
     background: '#1976d2',
     color: '#fff',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '6px',
+    fontSize: '0.9rem',
+    fontWeight: '500',
     cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    WebkitTapHighlightColor: 'transparent',
   },
   logoutBtn: {
-    padding: '6px 14px',
+    padding: '8px 16px',
     background: '#333',
     color: '#fff',
     border: '1px solid #555',
-    borderRadius: '4px',
+    borderRadius: '6px',
+    fontSize: '0.9rem',
     cursor: 'pointer',
+    WebkitTapHighlightColor: 'transparent',
   },
   deleteBtn: {
-    padding: '4px 10px',
+    padding: '6px 12px', // Diperbesar sedikit agar mudah ditekan di HP
     background: '#d32f2f',
     color: '#fff',
     border: 'none',
     borderRadius: '4px',
-    fontSize: '0.8rem',
+    fontSize: '0.85rem',
+    fontWeight: '500',
     cursor: 'pointer',
+    WebkitTapHighlightColor: 'transparent',
   },
-  error: { color: '#ff4d4d', fontSize: '0.85rem', textAlign: 'center', margin: '0 0 10px 0' },
-  tableContainer: { overflowX: 'auto' },
-  table: { width: '100%', borderCollapse: 'collapse', color: '#e0e0e0', marginTop: '10px' },
-  th: { borderBottom: '2px solid #444', padding: '12px', textAlign: 'left', color: '#ff3333' },
-  td: { borderBottom: '1px solid #333', padding: '12px' },
+  error: { 
+    color: '#ff4d4d', 
+    fontSize: '0.85rem', 
+    textAlign: 'center', 
+    margin: '0 0 10px 0' 
+  },
+  tableContainer: { 
+    overflowX: 'auto', // Scroll horizontal halus di iPhone/Android
+    WebkitOverflowScrolling: 'touch', // Kinetic scroll halus untuk iOS Safari
+    borderRadius: '6px',
+    border: '1px solid #333',
+  },
+  table: { 
+    width: '100%', 
+    borderCollapse: 'collapse', 
+    color: '#e0e0e0',
+    minWidth: '600px', // Mencegah isi tabel berdesakan/hancur di layar HP
+  },
+  th: { 
+    borderBottom: '2px solid #444', 
+    padding: '12px 14px', 
+    textAlign: 'left', 
+    color: '#ff3333',
+    backgroundColor: '#252525',
+    fontSize: '0.9rem',
+    whiteSpace: 'nowrap',
+  },
+  td: { 
+    borderBottom: '1px solid #333', 
+    padding: '12px 14px',
+    fontSize: '0.9rem',
+    wordBreak: 'break-word',
+  },
 };
