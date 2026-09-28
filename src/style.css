@@ -15,6 +15,11 @@
   --bg-profile: #121212;
   --bg-profile-name: url('/images/ariel2.jpg');
   --bg-profile-edu: url('/images/ariel.jpg');
+  --bg-alamat: url('/images/ariel3.jpg');
+  --hero-bg-image: url('/images/ends.jpg');
+  --bg-hero: url('/images/ends.jpg');
+  --bg-customize: url('/images/ends.jpg');
+  --bg-profile: url('/images/ends.jpg');
 }
 
 *{
@@ -1060,7 +1065,7 @@ main.profile-main {
 .alamat-hero {
   width: 100%;
   padding: 50px 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/foto1.jpg') center/cover no-repeat !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), var(--hero-bg-image) center/cover no-repeat !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
@@ -1105,20 +1110,19 @@ main.profile-main {
   background-color: #121212 !important;
   background-image: none !important;
   box-sizing: border-box;
-
-  /* TAMBAHKAN / SESUAIKAN BARIS DI BAWAH INI */
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Memaksa konten nempel ke atas, tidak melayang di tengah */
-  padding: 40px 20px 80px 20px; /* Padding atas disamakan dengan profile (40px) */
+  align-items: flex-start; /* Nempel rapi ke atas */
+  padding: 40px 20px 80px 20px;
 }
 
 .alamat-container {
   max-width: 900px;
-  margin: 0 auto; /* Jika ingin lebih naik lagi ke atas, ubah jadi: margin: -10px auto 0 auto; */
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   gap: 36px;
-  align-items: flex-start; /* Mengubah dari 'center' ke 'flex-start' agar konten langsung nempel ke atas */
+  align-items: flex-start;
 }
 
 /* Komponen Konten Alamat */
@@ -1146,7 +1150,6 @@ main.profile-main {
   flex-direction: column;
   align-items: flex-start;
 }
-
 .alamat-name {
   font-size: 1.25rem;
   font-weight: 700;
@@ -1199,9 +1202,9 @@ main.profile-main {
 
   .hero-title {
     font-size: 1.8rem;
-  }
+  } 
   .alamat-main {
-    padding: 24px 16px 40px 16px;
+    padding: 20px 16px 40px 16px;
   }
 
   .alamat-container {
@@ -1215,7 +1218,8 @@ main.profile-main {
   .alamat-photo {
     flex: none;
     width: 100%;
-    max-width: 300px; /* Ukuran gambar dibuat pas di layar HP */
+    max-width: 280px; /* Ukuran gambar pas di layar HP */
+    border-radius: 10px /* Ukuran gambar dibuat pas di layar HP */
   }
 
   .alamat-info {
@@ -1224,18 +1228,21 @@ main.profile-main {
   }
 
   .alamat-name {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
   }
 
   .alamat-desc {
-    font-size: 0.85rem;
-    margin-bottom: 16px;
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+    line-height: 1.5;
   }
 
   .alamat-location {
-    font-size: 0.8rem;
-    padding: 8px 16px;
+    font-size: 0.78rem;
+    padding: 7px 16px;
+    border-radius: 6px;
   }
 }
 /* ===== Mobile hamburger menu & sidebar ===== */
@@ -2136,7 +2143,7 @@ body:has(.loading-overlay) {
   position: relative;
   width: 100%;
   height: 220px;
-  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), url('/images/foto1.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), var(--bg-hero) center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2289,7 +2296,7 @@ body:has(.loading-overlay) {
 .customize-hero {
   width: 100%;
   padding: 50px 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/foto1.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), var(--bg-customize) center/cover no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
@@ -2470,7 +2477,7 @@ body:has(.loading-overlay) {
 .profile-hero {
   width: 100%;
   padding: 50px 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/foto1.jpg') center/cover no-repeat !important;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), var(--bg-profile) center/cover no-repeat !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
