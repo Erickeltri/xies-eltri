@@ -1,11 +1,14 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import javaScriptObfuscator from 'vite-plugin-javascript-obfuscator'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import postcssCustomProperties from 'postcss-custom-properties' // 👈 1. Impor PostCSS compiler
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    cssInjectedByJsPlugin(), 
     {
       ...javaScriptObfuscator({
         include: [/\.(js|ts|tsx|jsx)$/],
@@ -33,9 +36,19 @@ export default defineConfig({
         },
         apply: 'build',
       }),
-      enforce: 'post', // Memaksa obfuscator berjalan di akhir setelah semua JSX diubah menjadi JS standar
+      enforce: 'post', 
     },
   ],
+  // ── KUNCI FIX CSS: Menghancurkan variabel kustom dan menghapus blok :root ──
+  css: {
+    postcss: {
+      plugins: [
+        postcssCustomProperties({
+          preserve: false // Mengubah fungsi var(--name) menjadi kode warna asli dan menghapus :root
+        })
+      ]
+    }
+  },
   // ── KUNCI FIX: Menghapus Data Log Metadata Vercel Yang Bocor di Browser ──
   define: {
     'import.meta.env.VITE_VERCEL_GIT_COMMIT_AUTHOR_LOGIN': JSON.stringify(''),
@@ -47,12 +60,12 @@ export default defineConfig({
     'import.meta.env.VITE_VERCEL_GIT_PROVIDER': JSON.stringify(''),
   },
   build: {
-    sourcemap: false, // Mematikan source map agar teks asli tidak direkonstruksi
-    minify: 'terser', // Menggunakan Terser untuk menghancurkan susunan struktur fungsi JS
-    terserOptions: {
+    sourcemap: false, 
+    minify: 'terser', 
+    terserOptions: {   
       compress: {
         drop_console: true,
-        passes: 3, // Memproses kode berkali-kali agar fungsi menyatu menjadi baris acak
+        passes: 3, 
       },
     },
   },
