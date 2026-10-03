@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Lightbox from '../components/Lightbox';
 
 const customizeItems = [
@@ -29,8 +29,19 @@ const customizeItems = [
 ];
 
 export default function Customize() {
+  const [loading, setLoading] = useState(true);
+
   const handleContextMenu = (e) => e.preventDefault();
   const handleDragStart = (e) => e.preventDefault();
+
+  // Simulasi jaringan / delay loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3500); // 1.5 detik durasi skeleton loader
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="customize-page-wrapper">
@@ -47,46 +58,60 @@ export default function Customize() {
       {/* GRID KONTEN */}
       <div className="customize-container">
         <div className="customize-grid">
-          {customizeItems.map((item, idx) => (
-            <div className="customize-card" key={idx}>
-              <Lightbox type={item.type} src={item.src} alt={item.caption}>
-                <div className="media-container">
-                  {item.type === 'image' ? (
-                    <img 
-                      src={item.src} 
-                      alt={item.caption}
-                      loading="lazy"
-                      onContextMenu={handleContextMenu}
-                      onDragStart={handleDragStart}
-                      className="card-img"
-                    />
-                  ) : (
-                    <video 
-                      src={item.src} 
-                      autoPlay 
-                      muted 
-                      loop 
-                      playsInline 
-                      controlsList="nodownload"
-                      onContextMenu={handleContextMenu}
-                      className="card-video"
-                    />
-                  )}
+          {loading
+            ? /* TAMPILKAN 4 SKELETON CARD SAAT LOADING */
+              Array.from({ length: 4 }).map((_, idx) => (
+                <div className="customize-card skeleton-card" key={idx}>
+                  <div className="media-container skeleton" />
+                  <div className="card-body">
+                    <div className="card-meta">
+                      <div className="skeleton skeleton-text short" />
+                      <div className="skeleton skeleton-text short" />
+                    </div>
+                    <div className="skeleton skeleton-text title" />
+                  </div>
                 </div>
-              </Lightbox>
+              ))
+            : /* TAMPILKAN KARTU ASLI SETELAH LOADING SELESAI */
+              customizeItems.map((item, idx) => (
+                <div className="customize-card" key={idx}>
+                  <Lightbox type={item.type} src={item.src} alt={item.caption}>
+                    <div className="media-container">
+                      {item.type === 'image' ? (
+                        <img 
+                          src={item.src} 
+                          alt={item.caption}
+                          loading="lazy"
+                          onContextMenu={handleContextMenu}
+                          onDragStart={handleDragStart}
+                          className="card-img"
+                        />
+                      ) : (
+                        <video 
+                          src={item.src} 
+                          autoPlay 
+                          muted 
+                          loop 
+                          playsInline 
+                          controlsList="nodownload"
+                          onContextMenu={handleContextMenu}
+                          className="card-video"
+                        />
+                      )}
+                    </div>
+                  </Lightbox>
 
-              <div className="card-body">
-                <div className="card-meta">
-                  {/* Tag Otomatis PHOTO atau VIDEO */}
-                  <span className="card-tag">
-                    {item.type === 'image' ? 'PHOTO' : 'VIDEO'}
-                  </span>
-                  {item.date && <span className="card-date">{item.date}</span>}
+                  <div className="card-body">
+                    <div className="card-meta">
+                      <span className="card-tag">
+                        {item.type === 'image' ? 'PHOTO' : 'VIDEO'}
+                      </span>
+                      {item.date && <span className="card-date">{item.date}</span>}
+                    </div>
+                    <h3 className="card-title">{item.caption}</h3>
+                  </div>
                 </div>
-                <h3 className="card-title">{item.caption}</h3>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
       </div>
     </div>
