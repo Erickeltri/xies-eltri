@@ -2370,25 +2370,88 @@ body:has(.loading-overlay) {
   border-color: #444;
 }
 
-/* Media (Gambar / Video) */
+/* Media Container (Gambar / Video) */
 .media-container {
+  position: relative; /* Diperlukan agar skeleton melayang pas di atas frame */
   width: 100%;
   height: 200px;
   overflow: hidden;
-  background-color: #000;
+  background-color: #1a1a1a;
   cursor: pointer;
 }
 
+/* Base Image & Video Styling */
 .card-img, 
 .card-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: opacity 0.4s ease, transform 0.3s ease;
 }
 
-.customize-card:hover .card-img {
+/* Status Loading vs Loaded Media */
+.card-img.loading,
+.card-video.loading {
+  opacity: 0;
+}
+
+.card-img.loaded,
+.card-video.loaded {
+  opacity: 1;
+}
+
+.customize-card:hover .card-img.loaded {
   transform: scale(1.05);
+}
+
+/* ==========================================
+   ANIMASI SKELETON LOADER
+   ========================================== */
+.skeleton {
+  background-color: #222222;
+  background-image: linear-gradient(
+    90deg,
+    #222222 0%,
+    #333333 50%,
+    #222222 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton untuk Frame Media (Foto/Video) */
+.skeleton-media {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Skeleton untuk Teks (Tag, Tanggal, dan Judul) */
+.skeleton-text {
+  height: 12px;
+  border-radius: 4px;
+}
+
+.skeleton-text.short {
+  width: 35%;
+}
+
+.skeleton-text.title {
+  height: 16px;
+  width: 75%;
+  margin-top: 4px;
 }
 
 /* Info Detail di Bawah Media */
@@ -2541,5 +2604,97 @@ main.profile-main {
 
   main.profile-main {
     padding: 24px 16px 40px 16px;
+  }
+}
+
+/* ==========================================
+   ANIMASI & KLAS SKELETON LOADER PROFILE
+   ========================================== */
+.skeleton {
+  background-color: #222222;
+  background-image: linear-gradient(
+    90deg,
+    #222222 0%,
+    #333333 50%,
+    #222222 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Structuring Skeleton Kiri */
+.skeleton-profile-left,
+.skeleton-profile-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.skeleton-profile-logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-bottom: 2px;
+}
+
+.skeleton-profile-gpa {
+  width: 80px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.skeleton-profile-name {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+}
+
+.skeleton-profile-edu {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+}
+  
+/* Structuring Skeleton Kanan */
+.skeleton-profile-right {
+  gap: 35px;
+}
+
+.skeleton-code-window {
+  width: 100%;
+  height: 130px;
+  border-radius: 12px;
+}
+
+.skeleton-photo-card {
+  width: 100%;
+  height: 250px;
+  border-radius: 12px;
+}
+
+/* Penyesuaian Responsif Skeleton di Layar HP */
+@media (max-width: 820px) {
+  .skeleton-profile-logo {
+    width: 110px;
+    height: 110px;
+  }
+
+  .skeleton-profile-name {
+    height: 38px;
+  }
+
+  .skeleton-photo-card {
+    height: 200px;
   }
 }
