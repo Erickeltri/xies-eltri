@@ -2698,3 +2698,35 @@ main.profile-main {
     height: 200px;
   }
 }
+
+/* Home Animations Extracted from Inline Styles */
+.domino.page-anim {
+  animation-delay: 0.05s;
+}
+
+.about-photos.page-anim {
+  animation-delay: 0.1s;
+}
+
+.about-text.page-anim {
+  animation-delay: 0.2s;
+}
+
+/* Footer Status Message */
+.footer-status {
+  font-size: 0.8rem;
+  margin-top: 6px;
+}
+
+.footer-status.success {
+  color: #04ca5f;
+}
+
+.footer-status.error {
+  color: #ff3333;
+}
+
+/* Alamat Animations Extracted from Inline Styles */
+.alamat-info.page-anim {
+  animation-delay: 0.15s;
+}
