@@ -38,7 +38,7 @@ export default function Customize() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3500); // 1.5 detik durasi skeleton loader
+    }, 2200); // 1.5 detik durasi skeleton loader
 
     return () => clearTimeout(timer);
   }, []);
