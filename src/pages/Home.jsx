@@ -42,7 +42,7 @@ export default function Home({ userData }) {
   return (
     <>
       <main>
-        <div className="domino page-anim" style={{ animationDelay: '0.05s' }}>
+        <div className="domino page-anim">
           <h1>{userData?.name || 'Eltri Putra Rombebua'}</h1>
           <p>
             {userData?.bio ||
@@ -52,7 +52,7 @@ export default function Home({ userData }) {
       </main>
 
       <section className="about-section">
-        <div className="about-photos page-anim" style={{ animationDelay: '0.1s' }}>
+        <div className="about-photos page-anim">
           <div className="about-photo-back">
             <img
               src="/images/html.jpg"
@@ -71,7 +71,7 @@ export default function Home({ userData }) {
           </div>
         </div>
 
-        <div className="about-text page-anim" style={{ animationDelay: '0.2s' }}>
+        <div className="about-text page-anim">
           <h2>ELTRI PUTRA ROMBEBUA</h2>
           <p>
             Mempelajari Teknik Komputer dan Jaringan (TKJ) serta mengembangkan keterampilan di bidang Web Development, seperti HTML, CSS, dan JavaScript.
@@ -117,7 +117,7 @@ export default function Home({ userData }) {
           {loading ? 'Mengirim...' : 'Kirim pesan'}
         </button>
         {status && (
-          <p style={{ fontSize: '0.8rem', color: status.includes('berhasil') ? '#04ca5f' : '#ff3333', marginTop: '6px' }}>
+          <p className={`footer-status ${status.includes('berhasil') ? 'success' : 'error'}`}>
             {status}
           </p>
         )}

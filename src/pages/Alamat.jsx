@@ -26,7 +26,7 @@ export default function Alamat() {
             <img src="/images/comingsoon.jpg" alt="Foto ELTRI" />
           </Lightbox>
 
-          <div className="alamat-info page-anim" style={{ animationDelay: '0.15s' }}>
+          <div className="alamat-info page-anim">
             <h1 className="alamat-name">ELTRI PUTRA ROMBEBUA</h1>
 
             <p className="alamat-desc">
