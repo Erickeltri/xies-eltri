@@ -1,0 +1,94 @@
+/* =========================================================
+   STYLE UNTUK PROFILE PAGE & HERO BANNER
+   ========================================================= */
+
+/* Pembungkus Utama Profile */
+.profile-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* BANNER HERO ATAS (PROFILE) */
+.profile-hero {
+  width: 100%;
+  padding: 50px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), url('/images/foto1.jpg') center/cover no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Judul Banner Utama */
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Tombol Oval Pill Kapsul Profile */
+.breadcrumb-pill {
+  background-color: #ffffff;
+  color: #e50914;
+  padding: 6px 28px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.breadcrumb-pill .active {
+  color: #e50914;
+}
+
+/* Area Konten Utama di Bawah Banner */
+.profile-main {
+  width: 100%;
+  padding: 40px 20px 80px 20px;
+  box-sizing: border-box;
+}
+
+.profile-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.profile-left, 
+.profile-right {
+  flex: 1;
+}
+
+/* Responsif Mobile (iPhone & Android) */
+@media (max-width: 768px) {
+  .profile-hero {
+    padding: 35px 15px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .profile-container {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+}

@@ -2,29 +2,35 @@ import React, { useState, useEffect } from 'react';
 import Lightbox from '../components/Lightbox';
 
 const customizeItems = [
-  { 
-    type: 'image', 
-    src: '/images/foto1.jpg', 
+  {
+    type: 'image',
+    src: '/images/foto1.jpg',
     caption: 'Kota makassar',
-    date: '10 Mei 2026' 
+    date: '10/05 Mei 2026'
   },
-  { 
-    type: 'image', 
-    src: '/images/foto2.jpg', 
+  {
+    type: 'image',
+    src: '/images/foto2.jpg',
     caption: 'itu saya kecil lama',
-    date: '20 Maret 2007' 
+    date: '20/?? Maret 2007'
   },
-  { 
-    type: 'image', 
-    src: '/images/sad.jpg', 
+  {
+    type: 'image',
+    src: '/images/sad.jpg',
     caption: 'bantu aku',
-    date: '28 Desember 1999' 
+    date: '28/?? Desember 1999'
   },
-  { 
-    type: 'image', 
+  {
+    type: 'image',
     src: '/images/foto3.jpg',
     caption: 'itu kamar tidur saya',
-    date: '27 September 2026'
+    date: '27/09 September 2026'
+  },
+  {
+    type: "image",
+    src: "/images/foto4.jpg",
+    caption: "tadi foto kamera 🥀😅",
+    date: "10/11 Oktober 2026"
   },
 ];
 
@@ -38,7 +44,7 @@ export default function Customize() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2200); // 1.5 detik durasi skeleton loader
+    }, 3500); // 1.5 detik durasi skeleton loader
 
     return () => clearTimeout(timer);
   }, []);
@@ -60,58 +66,58 @@ export default function Customize() {
         <div className="customize-grid">
           {loading
             ? /* TAMPILKAN 4 SKELETON CARD SAAT LOADING */
-              Array.from({ length: 4 }).map((_, idx) => (
-                <div className="customize-card skeleton-card" key={idx}>
-                  <div className="media-container skeleton" />
-                  <div className="card-body">
-                    <div className="card-meta">
-                      <div className="skeleton skeleton-text short" />
-                      <div className="skeleton skeleton-text short" />
-                    </div>
-                    <div className="skeleton skeleton-text title" />
+            Array.from({ length: 5 }).map((_, idx) => (
+              <div className="customize-card skeleton-card" key={idx}>
+                <div className="media-container skeleton" />
+                <div className="card-body">
+                  <div className="card-meta">
+                    <div className="skeleton skeleton-text short" />
+                    <div className="skeleton skeleton-text short" />
                   </div>
+                  <div className="skeleton skeleton-text title" />
                 </div>
-              ))
+              </div>
+            ))
             : /* TAMPILKAN KARTU ASLI SETELAH LOADING SELESAI */
-              customizeItems.map((item, idx) => (
-                <div className="customize-card" key={idx}>
-                  <Lightbox type={item.type} src={item.src} alt={item.caption}>
-                    <div className="media-container">
-                      {item.type === 'image' ? (
-                        <img 
-                          src={item.src} 
-                          alt={item.caption}
-                          loading="lazy"
-                          onContextMenu={handleContextMenu}
-                          onDragStart={handleDragStart}
-                          className="card-img"
-                        />
-                      ) : (
-                        <video 
-                          src={item.src} 
-                          autoPlay 
-                          muted 
-                          loop 
-                          playsInline 
-                          controlsList="nodownload"
-                          onContextMenu={handleContextMenu}
-                          className="card-video"
-                        />
-                      )}
-                    </div>
-                  </Lightbox>
-
-                  <div className="card-body">
-                    <div className="card-meta">
-                      <span className="card-tag">
-                        {item.type === 'image' ? 'PHOTO' : 'VIDEO'}
-                      </span>
-                      {item.date && <span className="card-date">{item.date}</span>}
-                    </div>
-                    <h3 className="card-title">{item.caption}</h3>
+            customizeItems.map((item, idx) => (
+              <div className="customize-card" key={idx}>
+                <Lightbox type={item.type} src={item.src} alt={item.caption}>
+                  <div className="media-container">
+                    {item.type === 'image' ? (
+                      <img
+                        src={item.src}
+                        alt={item.caption}
+                        loading="lazy"
+                        onContextMenu={handleContextMenu}
+                        onDragStart={handleDragStart}
+                        className="card-img"
+                      />
+                    ) : (
+                      <video
+                        src={item.src}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controlsList="nodownload"
+                        onContextMenu={handleContextMenu}
+                        className="card-video"
+                      />
+                    )}
                   </div>
+                </Lightbox>
+
+                <div className="card-body">
+                  <div className="card-meta">
+                    <span className="card-tag">
+                      {item.type === 'image' ? 'PHOTO' : 'VIDEO'}
+                    </span>
+                    {item.date && <span className="card-date">{item.date}</span>}
+                  </div>
+                  <h3 className="card-title">{item.caption}</h3>
                 </div>
-              ))}
+              </div>
+            ))}
         </div>
       </div>
     </div>
