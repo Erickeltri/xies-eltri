@@ -80,10 +80,9 @@ export default function Customize() {
             ))
             : /* TAMPILKAN KARTU ASLI SETELAH LOADING SELESAI */
             customizeItems.map((item, idx) => (
-              <div 
-                className="customize-card" 
+              <div
+                className="customize-card"
                 key={idx}
-                style={{ animationDelay: `${idx * 0.08}s` }}
               >
                 <Lightbox 
                   type={item.type} 
