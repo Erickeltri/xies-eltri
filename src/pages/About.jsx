@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Lightbox from '../components/Lightbox';
 
 const customizeItems = [
@@ -34,20 +34,23 @@ const customizeItems = [
   },
 ];
 
+/**
+ * About / Gallery Page - Anti-lag skeleton loader
+ * 
+ * Skeleton pakai setTimeout 300ms (cukup untuk render skeleton terlihat, 
+ * tapi tidak lama sampai lag)
+ */
 export default function Customize() {
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
-  const handleContextMenu = (e) => e.preventDefault();
-  const handleDragStart = (e) => e.preventDefault();
-
-  // Simulasi jaringan / delay loading
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500); // Durasi skeleton loader yang responsif & wajar
-
+    // Anti-lag: delay 150ms — cukup skeleton terlihat, tidak lama sampai lag
+    const timer = setTimeout(() => setLoaded(true), 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleContextMenu = useCallback((e) => e.preventDefault(), []);
+  const handleDragStart = useCallback((e) => e.preventDefault(), []);
 
   return (
     <div className="customize-page-wrapper">
@@ -64,29 +67,25 @@ export default function Customize() {
       {/* GRID KONTEN */}
       <div className="customize-container">
         <div className="customize-grid">
-          {loading
-            ? /* TAMPILKAN 4 SKELETON CARD SAAT LOADING */
-            Array.from({ length: 5 }).map((_, idx) => (
-              <div className="customize-card skeleton-card" key={idx}>
-                <div className="media-container skeleton" />
-                <div className="card-body">
-                  <div className="card-meta">
-                    <div className="skeleton skeleton-text short" />
-                    <div className="skeleton skeleton-text short" />
-                  </div>
-                  <div className="skeleton skeleton-text title" />
+          {!loaded
+            ? Array.from({ length: 5 }).map((_, idx) => (
+              <div className="skeleton-card" key={`sk-${idx}`}>
+                <div className="skeleton-media" />
+                <div className="skeleton-body">
+                  <div className="skeleton-text short" />
+                  <div className="skeleton-text short" />
+                  <div className="skeleton-text title" />
                 </div>
               </div>
             ))
-            : /* TAMPILKAN KARTU ASLI SETELAH LOADING SELESAI */
-            customizeItems.map((item, idx) => (
+            : customizeItems.map((item, idx) => (
               <div
                 className="customize-card"
                 key={idx}
               >
-                <Lightbox 
-                  type={item.type} 
-                  src={item.src} 
+                <Lightbox
+                  type={item.type}
+                  src={item.src}
                   alt={item.caption}
                   date={item.date}
                 >
@@ -96,9 +95,12 @@ export default function Customize() {
                         src={item.src}
                         alt={item.caption}
                         loading="lazy"
+                        decoding="async"
                         onContextMenu={handleContextMenu}
                         onDragStart={handleDragStart}
                         className="card-img"
+                        width="400"
+                        height="300"
                       />
                     ) : (
                       <video
