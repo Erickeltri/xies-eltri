@@ -1,4 +1,4 @@
-:root{
+:root {
   --ink: #1c1b19;
   --paper: #f6f4ef;
   --line: #1c1b19;
@@ -7,7 +7,8 @@
 
   --topbar-bg: #0a0a0a;
   --topbar-ink: #f6f4ef;
-  --nav-bg: #7a1f1f;   /* merah maroon gelap */
+  --nav-bg: #7a1f1f;
+  /* merah maroon gelap */
   --nav-ink: #ffffff;
 
   --bg-gallery: url('/images/buku.jpg');
@@ -16,92 +17,93 @@
   --bg-profile-name: url('/images/ariel2.jpg');
   --bg-profile-edu: url('/images/ariel.jpg');
   --bg-alamat: url('/images/ariel3.jpg');
-  --hero-bg-image: url('/images/ends.jpg');
-  --bg-hero: url('/images/ends.jpg');
-  --bg-customize: url('/images/ends.jpg');
-  --bg-profile: url('/images/ends.jpg');
+  --hero-bg-image: url('/images/polisi.jpg');
+  --bg-hero: url('/images/polisi.jpg');
+  --bg-customize: url('/images/polisi.jpg');
+  --bg-profile: url('/images/polisi.jpg');
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body{
+html,
+body {
   height: 100%;
 }
 
-body{
+body {
   background: var(--paper);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
 
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 135px;
   background: var(--topbar-bg);
   color: var(--topbar-ink);
 }
 
-.logo{
+.logo {
   font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--topbar-ink);
 }
 
-.socials{
-  display:flex;
+.socials {
+  display: flex;
   gap: 18px;
 }
 
-.socials a{
+.socials a {
   width: 34px;
   height: 34px;
   border: 1.5px solid var(--topbar-ink);
   border-radius: 8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--topbar-ink);
-  text-decoration:none;
+  text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-.socials a:hover{
+.socials a:hover {
   background: var(--topbar-ink);
   color: var(--topbar-bg);
   transform: translateY(-2px);
 }
 
-.socials svg{
+.socials svg {
   width: 17px;
   height: 17px;
   fill: currentColor;
 }
 
-nav{
-  display:flex;
+nav {
+  display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   padding: 10px 135px;
   font-size: 0.92rem;
   background: var(--nav-bg);
 }
 
-.nav-links{
+.nav-links {
   display: flex;
   align-items: center;
   gap: 40px;
 }
 
-.nav-logo{
+.nav-logo {
   width: 58px;
   height: 58px;
   border-radius: 50%;
@@ -110,29 +112,30 @@ nav{
   flex-shrink: 0;
 }
 
-nav a{
+nav a {
   color: var(--nav-ink);
-  text-decoration:none;
-  position:relative;
+  text-decoration: none;
+  position: relative;
   padding-bottom: 4px;
 }
 
-nav a::after{
-  content:'';
-  position:absolute;
-  left:0; bottom:0;
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
   height: 2px;
-  width:0;
+  width: 0;
   background: var(--nav-ink);
   transition: width 0.25s ease;
 }
 
-nav a:hover::after{
-  width:100%;
+nav a:hover::after {
+  width: 100%;
 }
 
-nav a.active::after{
-  width:100%;
+nav a.active::after {
+  width: 100%;
 }
 
 main.gallery-main {
@@ -146,10 +149,8 @@ main.gallery-main {
   background-color: #1a1a1a;
 
   /* Gambar background dengan opacity overlay yang pas */
-  background-image: linear-gradient(
-      rgba(10, 10, 10, 0.55),
-      rgba(10, 10, 10, 0.55)
-    ),
+  background-image: linear-gradient(rgba(10, 10, 10, 0.55),
+      rgba(10, 10, 10, 0.55)),
     var(--bg-gallery);
   background-size: cover;
   background-position: center;
@@ -163,7 +164,7 @@ main.gallery-main {
   font-weight: 400;
   margin-bottom: 40px;
   color: #f6f4ef;
-  
+
   /* Mencegah judul di-select / di-highlight */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -184,6 +185,7 @@ main.gallery-main {
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -208,13 +210,33 @@ main.gallery-main {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
-.gallery-item:nth-child(1) { animation-delay: 0.05s; }
-.gallery-item:nth-child(2) { animation-delay: 0.15s; }
-.gallery-item:nth-child(3) { animation-delay: 0.25s; }
-.gallery-item:nth-child(4) { animation-delay: 0.35s; }
-.gallery-item:nth-child(5) { animation-delay: 0.45s; }
-.gallery-item:nth-child(6) { animation-delay: 0.55s; }
-.gallery-item:nth-child(7) { animation-delay: 0.65s; }
+.gallery-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.gallery-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.gallery-item:nth-child(3) {
+  animation-delay: 0.25s;
+}
+
+.gallery-item:nth-child(4) {
+  animation-delay: 0.35s;
+}
+
+.gallery-item:nth-child(5) {
+  animation-delay: 0.45s;
+}
+
+.gallery-item:nth-child(6) {
+  animation-delay: 0.55s;
+}
+
+.gallery-item:nth-child(7) {
+  animation-delay: 0.65s;
+}
 
 .media-wrap {
   aspect-ratio: 4 / 3;
@@ -244,7 +266,7 @@ main.gallery-main {
   -o-user-drag: none;
 
   /* Menutup respon mouse langsung ke img agar klik kanan tidak memicu 'Save Image As' */
-  pointer-events: none;   
+  pointer-events: none;
 }
 
 .gallery-item:hover .media-wrap img,
@@ -257,7 +279,7 @@ main.gallery-main {
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0 4px;
-  
+
   /* Mencegah teks caption di-block/salin */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -271,7 +293,7 @@ main.gallery-main {
   font-weight: 500;
   padding: 0 4px;
   margin-top: 2px;
-  
+
   /* Mencegah teks tanggal di-block/salin */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -297,7 +319,8 @@ main.gallery-main {
 
   main.gallery-main {
     padding: 40px 16px 60px;
-    background-attachment: scroll; /* Menghindari lag scroll di layar HP */
+    background-attachment: scroll;
+    /* Menghindari lag scroll di layar HP */
   }
 
   .gallery-item {
@@ -310,22 +333,22 @@ main.gallery-main {
   }
 }
 
-main{
+main {
   min-height: calc(100vh - 130px);
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   padding: 90px 60px;
-  background-image: linear-gradient(rgba(10,10,10,0.55), rgba(10,10,10,0.55)), var(--bg-home);
+  background-image: linear-gradient(rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.55)), var(--bg-home);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.domino{
+.domino {
   max-width: 640px;
 }
 
-.domino h1{
+.domino h1 {
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   font-weight: 400;
   border-left: 4px solid var(--accent);
@@ -334,7 +357,7 @@ main{
   color: #f6f4ef;
 }
 
-.domino p{
+.domino p {
   margin-top: 18px;
   padding-left: 26px;
   color: #d8d5cd;
@@ -342,49 +365,55 @@ main{
   max-width: 56ch;
 }
 
-@media (max-width: 640px){
-  .topbar{
+@media (max-width: 640px) {
+  .topbar {
     padding: 14px 45px;
     flex-wrap: wrap;
     gap: 12px;
     justify-content: space-between;
   }
 
-  .logo{ font-size: 1rem; }
+  .logo {
+    font-size: 1rem;
+  }
 
-  .socials{ gap: 8px; }
+  .socials {
+    gap: 8px;
+  }
 
-  .socials a{
+  .socials a {
     width: 28px;
     height: 28px;
   }
 
-  .socials svg{
+  .socials svg {
     width: 13px;
     height: 13px;
   }
 
-  nav{
+  nav {
     gap: 16px;
     font-size: 0.81rem;
     padding: 10px 45px;
     flex-wrap: wrap;
   }
 
-  .nav-logo{
+  .nav-logo {
     width: 44px;
     height: 44px;
   }
 
-  main{ padding: 40px 20px; }
+  main {
+    padding: 40px 20px;
+  }
 
-  .domino h1{
+  .domino h1 {
     font-size: 1.4rem;
     padding-left: 16px;
     border-left-width: 3px;
   }
 
-  .domino p{
+  .domino p {
     padding-left: 20px;
     font-size: 0.78rem;
   }
@@ -403,7 +432,7 @@ main{
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    visibility 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 99999;
   padding: 40px;
   cursor: zoom-out;
@@ -447,7 +476,7 @@ main{
   opacity: 0;
   filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.75));
   transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.2),
-              opacity 0.3s ease;
+    opacity 0.3s ease;
 }
 
 .fullscreen-overlay.is-open .fullscreen-content {
@@ -499,7 +528,7 @@ main{
   transform: translateY(12px);
   opacity: 0;
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
-              opacity 0.3s ease 0.1s;
+    opacity 0.3s ease 0.1s;
 }
 
 .fullscreen-overlay.is-open .lightbox-caption-bar {
@@ -632,16 +661,19 @@ main{
   .fullscreen-overlay {
     padding: 16px;
   }
+
   .fullscreen-close {
     top: 16px;
     right: 16px;
     width: 38px;
     height: 38px;
   }
+
   .fullscreen-close svg {
     width: 18px;
     height: 18px;
   }
+
   .fullscreen-content img,
   .fullscreen-content video,
   .lightbox-protected-img,
@@ -649,13 +681,16 @@ main{
     max-width: 95vw;
     max-height: 72vh;
   }
+
   .lightbox-caption-bar {
     padding: 6px 14px;
     font-size: 0.8rem;
   }
+
   .lightbox-caption-text {
     font-size: 0.82rem;
   }
+
   .lightbox-caption-date {
     font-size: 0.72rem;
   }
@@ -669,12 +704,10 @@ main.profile-main {
   align-items: flex-start;
   min-height: calc(100vh - 130px);
   padding: 90px 30px 40px 30px;
-  
+
   /* Background Utama Tanpa Efek Zoom */
-  background-image: linear-gradient(
-      rgba(15, 15, 15, 0.45),
-      rgba(15, 15, 15, 0.45)
-    ),
+  background-image: linear-gradient(rgba(15, 15, 15, 0.45),
+      rgba(15, 15, 15, 0.45)),
     var(--bg-profile);
   background-size: cover;
   background-position: center;
@@ -701,6 +734,7 @@ main.profile-main {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -755,18 +789,27 @@ main.profile-main {
 }
 
 @keyframes logoGlowPulse {
-  0%, 100% { box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); }
-  50% { box-shadow: 0 0 25px rgba(120, 20, 20, 0.35); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(120, 20, 20, 0.35);
+  }
 }
 
 .profile-gpa {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ffaa00; /* Warna oranye terang/gold agar menyala di background gelap */
+  color: #ffaa00;
+  /* Warna oranye terang/gold agar menyala di background gelap */
   text-align: center;
   margin: 8px 0 12px 0;
   letter-spacing: 0.5px;
-  text-shadow: 0 0 8px rgba(255, 170, 0, 0.4); /* Efek bercahaya halus agar lebih kontras */
+  text-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+  /* Efek bercahaya halus agar lebih kontras */
 }
 
 /* ===== Animasi Nama Profil ===== */
@@ -778,7 +821,7 @@ main.profile-main {
   font-size: 1.05rem;
   letter-spacing: 0.05em;
   font-weight: 700;
-  background-image: linear-gradient(rgba(10,10,10,0.55), rgba(10,10,10,0.55)), var(--bg-profile-name);
+  background-image: linear-gradient(rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.55)), var(--bg-profile-name);
   background-size: 110% auto;
   background-position: center;
   color: var(--topbar-ink);
@@ -798,7 +841,8 @@ main.profile-main {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #ff6b00; /* Warna orange */
+  color: #ff6b00;
+  /* Warna orange */
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -814,28 +858,39 @@ main.profile-main {
   bottom: 0;
   height: 2px;
   width: 100%;
-  background: #ff6b00; /* Warna orange */
+  background: #ff6b00;
+  /* Warna orange */
   transform: scaleX(0);
   transform-origin: left;
   animation: titleUnderlineDraw 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
 }
 
 @keyframes titleUnderlineDraw {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .education-icon {
   width: 22px;
   height: 22px;
-  color: #ff6b00; /* Warna orange */
+  color: #ff6b00;
+  /* Warna orange */
   flex-shrink: 0;
   animation: iconBounce 2s ease-in-out infinite;
   transition: transform 0.3s ease;
 }
 
 @keyframes iconBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .profile-education-title:hover .education-icon {
@@ -850,7 +905,7 @@ main.profile-main {
   padding: 18px 20px;
   border-radius: 10px;
   text-align: left;
-  background-image: linear-gradient(rgba(10,10,10,0.55), rgba(10,10,10,0.55)), var(--bg-profile-edu);
+  background-image: linear-gradient(rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.55)), var(--bg-profile-edu);
   background-size: cover;
   background-position: center;
   color: #f6f4ef;
@@ -966,9 +1021,17 @@ main.profile-main {
   filter: brightness(1.2);
 }
 
-.dot-red { background-color: #ff5f56; }
-.dot-yellow { background-color: #ffbd2e; }
-.dot-green { background-color: #27c93f; }
+.dot-red {
+  background-color: #ff5f56;
+}
+
+.dot-yellow {
+  background-color: #ffbd2e;
+}
+
+.dot-green {
+  background-color: #27c93f;
+}
 
 .window-badge {
   position: absolute;
@@ -996,7 +1059,7 @@ main.profile-main {
   height: 18px;
   object-fit: contain;
 }
-  
+
 .code-window-body {
   padding: 18px 16px;
   color: #d4d4d4;
@@ -1011,8 +1074,14 @@ main.profile-main {
   word-break: break-word;
 }
 
-.code-keyword { color: #569cd6; font-weight: 600; }
-.code-string { color: #ce9178; }
+.code-keyword {
+  color: #569cd6;
+  font-weight: 600;
+}
+
+.code-string {
+  color: #ce9178;
+}
 
 /* ===== Card Foto ===== */
 .photo-card {
@@ -1075,7 +1144,8 @@ main.profile-main {
   align-items: center;
   gap: 5px;
   font-size: 0.75rem;
-  color: #ff3333; /* Warna merah khas tema NERV */
+  color: #ff3333;
+  /* Warna merah khas tema NERV */
   text-decoration: none;
   font-weight: 500;
   width: fit-content;
@@ -1099,7 +1169,7 @@ main.profile-main {
   .school-name {
     font-size: 0.85rem;
   }
-  
+
   .location-btn {
     font-size: 0.85rem;
   }
@@ -1116,7 +1186,8 @@ main.profile-main {
     padding: 50px 30px 40px 30px;
     align-items: flex-start;
     min-height: auto;
-    background-attachment: scroll; /* Mencegah lag scroll di HP */
+    background-attachment: scroll;
+    /* Mencegah lag scroll di HP */
   }
 
   .profile-container {
@@ -1167,8 +1238,9 @@ main.profile-main {
     max-height: 220px;
   }
 
-  
+
 }
+
 /* Pembungkus Utama Alamat */
 .alamat-page-wrapper {
   width: 100%;
@@ -1231,7 +1303,8 @@ main.profile-main {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Nempel rapi ke atas */
+  align-items: flex-start;
+  /* Nempel rapi ke atas */
   padding: 40px 20px 80px 20px;
 }
 
@@ -1269,6 +1342,7 @@ main.profile-main {
   flex-direction: column;
   align-items: flex-start;
 }
+
 .alamat-name {
   font-size: 1.25rem;
   font-weight: 700;
@@ -1321,7 +1395,8 @@ main.profile-main {
 
   .hero-title {
     font-size: 1.8rem;
-  } 
+  }
+
   .alamat-main {
     padding: 20px 16px 40px 16px;
   }
@@ -1337,8 +1412,10 @@ main.profile-main {
   .alamat-photo {
     flex: none;
     width: 100%;
-    max-width: 280px; /* Ukuran gambar pas di layar HP */
-    border-radius: 10px /* Ukuran gambar dibuat pas di layar HP */
+    max-width: 280px;
+    /* Ukuran gambar pas di layar HP */
+    border-radius: 10px
+      /* Ukuran gambar dibuat pas di layar HP */
   }
 
   .alamat-info {
@@ -1364,8 +1441,9 @@ main.profile-main {
     border-radius: 6px;
   }
 }
+
 /* ===== Mobile hamburger menu & sidebar ===== */
-.menu-toggle{
+.menu-toggle {
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -1380,7 +1458,7 @@ main.profile-main {
   flex-shrink: 0;
 }
 
-.menu-toggle span{
+.menu-toggle span {
   display: block;
   width: 22px;
   height: 2px;
@@ -1389,19 +1467,19 @@ main.profile-main {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.menu-toggle.is-open span:nth-child(1){
+.menu-toggle.is-open span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 
-.menu-toggle.is-open span:nth-child(2){
+.menu-toggle.is-open span:nth-child(2) {
   opacity: 0;
 }
 
-.menu-toggle.is-open span:nth-child(3){
+.menu-toggle.is-open span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-.mobile-sidebar{
+.mobile-sidebar {
   position: fixed;
   top: 0;
   left: 0;
@@ -1417,14 +1495,14 @@ main.profile-main {
   align-items: center;
   padding: 56px 28px 28px;
   gap: 32px;
-  box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.mobile-sidebar.is-open{
+.mobile-sidebar.is-open {
   transform: translateX(0);
 }
 
-.mobile-sidebar-logo{
+.mobile-sidebar-logo {
   width: 72px;
   height: 72px;
   border-radius: 50%;
@@ -1432,14 +1510,14 @@ main.profile-main {
   border: 2px solid var(--nav-ink);
 }
 
-.mobile-sidebar-links{
+.mobile-sidebar-links {
   display: flex;
   flex-direction: column;
   gap: 22px;
   width: 100%;
 }
 
-.mobile-sidebar-links a{
+.mobile-sidebar-links a {
   color: var(--nav-ink);
   text-decoration: none;
   font-size: 1rem;
@@ -1449,12 +1527,12 @@ main.profile-main {
   width: 100%;
 }
 
-.mobile-sidebar-links a.active{
+.mobile-sidebar-links a.active {
   border-bottom-color: var(--nav-ink);
   font-weight: 700;
 }
 
-.sidebar-overlay{
+.sidebar-overlay {
   position: fixed;
   inset: 0;
   background: rgba(10, 10, 10, 0.55);
@@ -1464,24 +1542,24 @@ main.profile-main {
   z-index: 1090;
 }
 
-.sidebar-overlay.is-open{
+.sidebar-overlay.is-open {
   opacity: 1;
   visibility: visible;
 }
 
-@media (max-width: 640px){
-  .menu-toggle{
+@media (max-width: 640px) {
+  .menu-toggle {
     display: flex;
   }
 
-  header nav{
+  header nav {
     display: none;
   }
 }
 
 
 /* ===== home / di bawah Section (staggered photos) ===== */
-.about-section{
+.about-section {
   display: flex;
   align-items: center;
   gap: 40px;
@@ -1490,13 +1568,13 @@ main.profile-main {
   padding: 80px 40px;
 }
 
-.about-photos{
+.about-photos {
   position: relative;
   flex: 0 0 520px;
   height: 460px;
 }
 
-.about-photo-back{
+.about-photo-back {
   position: absolute;
   top: 0;
   left: 0;
@@ -1507,10 +1585,10 @@ main.profile-main {
   overflow: hidden;
   background: #e8e5dd;
   z-index: 1;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-.about-photo-front{
+.about-photo-front {
   position: absolute;
   top: 205px;
   left: 180px;
@@ -1521,22 +1599,22 @@ main.profile-main {
   overflow: hidden;
   background: #f6f4ef;
   z-index: 2;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
-.about-photos img{
+.about-photos img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.about-text{
+.about-text {
   flex: 1;
   padding-top: 4px;
 }
 
-.about-text h2{
+.about-text h2 {
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -1546,62 +1624,65 @@ main.profile-main {
   margin-bottom: 24px;
 }
 
-.about-text p{
+.about-text p {
   font-size: 0.9rem;
   line-height: 1.75;
   color: var(--muted);
   max-width: 60ch;
 }
 
-.about-text p + p{
+.about-text p+p {
   margin-top: 20px;
 }
 
 /* Tablet */
-@media (max-width: 900px){
-  .about-photos{
+@media (max-width: 900px) {
+  .about-photos {
     flex: 0 0 420px;
     height: 370px;
   }
 
   .about-photo-back,
-  .about-photo-front{
+  .about-photo-front {
     width: 270px;
     height: 200px;
   }
 
-  .about-photo-front{
+  .about-photo-front {
     top: 163px;
     left: 143px;
   }
 }
 
-@media (max-width: 760px){
-  .about-section{
+@media (max-width: 760px) {
+  .about-section {
     flex-direction: column;
     padding: 60px 20px;
-    gap: 1px;   /* ⬅️ dikurangin dari 50px */
+    gap: 1px;
+    /* ⬅️ dikurangin dari 50px */
   }
 
-  .about-photos{
+  .about-photos {
     width: 100%;
     max-width: 310px;
     margin: 0 auto;
-    height: 300px;   /*   ⬅️ dikurangin dari 330px, pas sama tinggi foto depan */
+    height: 300px;
+    /*   ⬅️ dikurangin dari 330px, pas sama tinggi foto depan */
   }
 
   .about-photo-back,
-  .about-photo-front{
+  .about-photo-front {
     width: 240px;
     height: 175px;
   }
 
-  .about-photo-front{
-    top: 155px;   /* ⬅️ disesuaikan biar pas sama height container baru */
+  .about-photo-front {
+    top: 155px;
+    /* ⬅️ disesuaikan biar pas sama height container baru */
     left: 67px;
   }
 
-  .about-text{
+  .about-text {
     text-align: left;
     margin-top: -70px;
   }
@@ -1738,7 +1819,8 @@ main.profile-main {
 
   .site-footer-inner {
     display: flex;
-    flex-wrap: wrap; /* Mengizinkan elemen membungkus ke bawah jika layar sempit */
+    flex-wrap: wrap;
+    /* Mengizinkan elemen membungkus ke bawah jika layar sempit */
     gap: 24px;
   }
 
@@ -1748,13 +1830,15 @@ main.profile-main {
   }
 
   .footer-menu-col {
-    order: 1; /* Posisi Menu di sebelah Kiri */
+    order: 1;
+    /* Posisi Menu di sebelah Kiri */
     flex: 1;
     min-width: 85px;
   }
 
   .footer-form-col {
-    order: 2; /* Posisi Form di sebelah Kanan */
+    order: 2;
+    /* Posisi Form di sebelah Kanan */
     flex: 2;
     min-width: 0;
   }
@@ -1765,103 +1849,105 @@ main.profile-main {
 }
 
 /* ===== Animasi & Hover halaman Profile ===== */
-@keyframes profileFadeInUp{
-  from{
+@keyframes profileFadeInUp {
+  from {
     opacity: 0;
     transform: translateY(22px);
   }
-  to{
+
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.profile-anim{
+.profile-anim {
   opacity: 0;
   animation: profileFadeInUp 0.6s ease forwards;
 }
 
 /* Logo: fade-in + hover membesar & glow tipis */
-.profile-logo{
+.profile-logo {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.profile-logo:hover{
+.profile-logo:hover {
   transform: scale(1.06);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
-.profile-logo img{
+.profile-logo img {
   transition: transform 0.4s ease;
 }
 
-.profile-logo:hover img{
+.profile-logo:hover img {
   transform: scale(1.1);
 }
 
 /* Kotak nama: hover naik dikit + bayangan */
-.profile-name{
+.profile-name {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.profile-name:hover{
+.profile-name:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
 }
 
 /* Kotak riwayat pendidikan: sedikit hover lift */
-.profile-education{
+.profile-education {
   transition: box-shadow 0.3s ease;
 }
 
-.profile-education:hover{
-  box-shadow: 0 14px 32px rgba(0,0,0,0.28);
+.profile-education:hover {
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
 }
 
 /* Baris riwayat pendidikan: fade-in bertahap + hover highlight */
-.profile-education li{
+.profile-education li {
   opacity: 0;
   animation: profileFadeInUp 0.5s ease forwards;
   transition: background 0.25s ease, padding-left 0.25s ease;
   border-radius: 8px;
 }
 
-.profile-education li:hover{
+.profile-education li:hover {
   background: rgba(246, 244, 239, 0.08);
   padding-left: 8px;
 }
 
 /* Logo sekolah: hover membesar & sedikit rotasi */
-.school-logo{
+.school-logo {
   transition: transform 0.3s ease;
 }
 
-.profile-education li:hover .school-logo{
+.profile-education li:hover .school-logo {
   transform: scale(1.15) rotate(-4deg);
 }
 
 /* Ikon pendidikan di judul: hover goyang dikit */
-.education-icon{
+.education-icon {
   transition: transform 0.3s ease;
 }
 
-.profile-education-title:hover .education-icon{
+.profile-education-title:hover .education-icon {
   transform: rotate(-8deg) scale(1.1);
 }
 
 /* ===== Animasi fade-in umum untuk semua halaman ===== */
-@keyframes pageFadeInUp{
-  from{
+@keyframes pageFadeInUp {
+  from {
     opacity: 0;
     transform: translateY(24px);
   }
-  to{
+
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.page-anim{
+.page-anim {
   opacity: 0;
   animation: pageFadeInUp 0.6s ease forwards;
 }
@@ -1869,27 +1955,30 @@ main.profile-main {
 /* ===== Upgrade animasi Profile: glow, underline reveal, slide-in ===== */
 
 /* Logo: efek "napas" glow terus-menerus di sekelilingnya */
-@keyframes logoGlowPulse{
-  0%, 100%{
+@keyframes logoGlowPulse {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(217, 79, 79, 0.35);
   }
-  50%{
+
+  50% {
     box-shadow: 0 0 0 14px rgba(217, 79, 79, 0);
   }
 }
 
-.profile-logo{
+.profile-logo {
   animation: profileFadeInUp 0.6s ease forwards, logoGlowPulse 2.6s ease-in-out 0.8s infinite;
 }
 
 /* Judul "Riwayat Pendidikan": underline yang "menggambar sendiri" */
-.profile-education-title{
+.profile-education-title {
   position: relative;
   display: inline-flex;
   padding-bottom: 6px;
 }
 
-.profile-education-title::after{
+.profile-education-title::after {
   content: '';
   position: absolute;
   left: 0;
@@ -1901,24 +1990,30 @@ main.profile-main {
   animation-delay: 0.7s;
 }
 
-@keyframes titleUnderlineDraw{
-  from{ width: 0; }
-  to{ width: 100%; }
+@keyframes titleUnderlineDraw {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 /* List riwayat pendidikan: slide-in dari kiri + sedikit rotasi, ganti dari fade polos */
-@keyframes listSlideIn{
-  from{
+@keyframes listSlideIn {
+  from {
     opacity: 0;
     transform: translateX(-24px) rotate(-1deg);
   }
-  to{
+
+  to {
     opacity: 1;
     transform: translateX(0) rotate(0deg);
   }
 }
 
-.profile-education li{
+.profile-education li {
   animation-name: listSlideIn;
   animation-duration: 0.55s;
   animation-timing-function: ease;
@@ -1926,23 +2021,31 @@ main.profile-main {
 }
 
 /* Ikon topi wisuda: loncat kecil terus-menerus (menarik perhatian) */
-@keyframes iconBounce{
-  0%, 100%{ transform: translateY(0); }
-  50%{ transform: translateY(-4px); }
+@keyframes iconBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
-.education-icon{
+.education-icon {
   animation: iconBounce 1.8s ease-in-out 1.2s infinite;
 }
 
-.profile-education-title:hover .education-icon{
+.profile-education-title:hover .education-icon {
   animation-play-state: paused;
   transform: rotate(-8deg) scale(1.1);
 }
 
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion: reduce) {
+
   .profile-logo,
-  .education-icon{
+  .education-icon {
     animation: none !important;
   }
 }
@@ -1979,7 +2082,8 @@ body:has(.loading-overlay) {
 
 /* Ukuran Logo NERV Besar & Animasi Pendaran Merah */
 .nerv-logo-large {
-  width: 180px; /* Ukuran besar dominan */
+  width: 180px;
+  /* Ukuran besar dominan */
   height: auto;
   object-fit: contain;
   animation: logoPulseGlow 2s ease-in-out infinite alternate;
@@ -2041,6 +2145,7 @@ body:has(.loading-overlay) {
     filter: drop-shadow(0 0 6px rgba(230, 57, 70, 0.4));
     opacity: 0.85;
   }
+
   100% {
     transform: scale(1.08);
     filter: drop-shadow(0 0 28px rgba(230, 57, 70, 0.95));
@@ -2050,8 +2155,15 @@ body:has(.loading-overlay) {
 
 /* Animasi Kedip Teks Halus */
 @keyframes textFlicker {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 
@@ -2144,7 +2256,8 @@ body:has(.loading-overlay) {
 
 /* Kelas untuk memberi jeda/jarak antar kartu */
 .lightbox-item {
-  margin-bottom: 20px; /* Jeda jarak ke bawah */
+  margin-bottom: 20px;
+  /* Jeda jarak ke bawah */
   /* Boleh tambahkan margin-right jika layout horizontal: */
   /* margin-right: 16px; */
 }
@@ -2168,7 +2281,8 @@ body:has(.loading-overlay) {
 .image-skeleton-wrap {
   position: relative;
   width: 100%;
-  min-height: 200px; /* Menjaga ukuran box sebelum gambar muncul */
+  min-height: 200px;
+  /* Menjaga ukuran box sebelum gambar muncul */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2190,6 +2304,7 @@ body:has(.loading-overlay) {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -2199,6 +2314,7 @@ body:has(.loading-overlay) {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -2292,7 +2408,8 @@ body:has(.loading-overlay) {
   cursor: pointer;
 }
 
-.card-image, .card-video {
+.card-image,
+.card-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2344,9 +2461,11 @@ body:has(.loading-overlay) {
   .hero-banner {
     height: 180px;
   }
+
   .hero-title {
     font-size: 1.8rem;
   }
+
   .customize-grid {
     grid-template-columns: 1fr;
   }
@@ -2361,7 +2480,8 @@ body:has(.loading-overlay) {
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Memastikan Banner di atas, Grid Konten di bawah */
+  flex-direction: column;
+  /* Memastikan Banner di atas, Grid Konten di bawah */
   background-color: #121212;
   color: #ffffff;
   box-sizing: border-box;
@@ -2398,7 +2518,8 @@ body:has(.loading-overlay) {
 /* Tombol Oval Pill Kapsul (Hanya About) */
 .breadcrumb-pill {
   background-color: #ffffff;
-  color: #e50914; /* Warna teks merah */
+  color: #e50914;
+  /* Warna teks merah */
   padding: 6px 28px;
   border-radius: 50px;
   font-size: 0.9rem;
@@ -2423,7 +2544,8 @@ body:has(.loading-overlay) {
 /* DESKTOP: Tetap 3 Kolom */
 .customize-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Dikunci 3 kolom untuk desktop */
+  grid-template-columns: repeat(3, 1fr);
+  /* Dikunci 3 kolom untuk desktop */
   gap: 24px;
   width: 100%;
 }
@@ -2434,30 +2556,60 @@ body:has(.loading-overlay) {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #2a2a2a;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease;
   display: flex;
   flex-direction: column;
   animation: cardFadeInUp 0.5s ease forwards;
 }
 
-.customize-card:nth-child(1) { animation-delay: 0.08s; }
-.customize-card:nth-child(2) { animation-delay: 0.16s; }
-.customize-card:nth-child(3) { animation-delay: 0.24s; }
-.customize-card:nth-child(4) { animation-delay: 0.32s; }
-.customize-card:nth-child(5) { animation-delay: 0.40s; }
-.customize-card:nth-child(6) { animation-delay: 0.48s; }
-.customize-card:nth-child(7) { animation-delay: 0.56s; }
-.customize-card:nth-child(8) { animation-delay: 0.64s; }
-.customize-card:nth-child(9) { animation-delay: 0.72s; }
-.customize-card:nth-child(10) { animation-delay: 0.80s; }
+.customize-card:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+.customize-card:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.customize-card:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.customize-card:nth-child(4) {
+  animation-delay: 0.32s;
+}
+
+.customize-card:nth-child(5) {
+  animation-delay: 0.40s;
+}
+
+.customize-card:nth-child(6) {
+  animation-delay: 0.48s;
+}
+
+.customize-card:nth-child(7) {
+  animation-delay: 0.56s;
+}
+
+.customize-card:nth-child(8) {
+  animation-delay: 0.64s;
+}
+
+.customize-card:nth-child(9) {
+  animation-delay: 0.72s;
+}
+
+.customize-card:nth-child(10) {
+  animation-delay: 0.80s;
+}
 
 @keyframes cardFadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -2472,7 +2624,8 @@ body:has(.loading-overlay) {
 
 /* Media Container (Gambar / Video) */
 .media-container {
-  position: relative; /* Diperlukan agar skeleton melayang pas di atas frame */
+  position: relative;
+  /* Diperlukan agar skeleton melayang pas di atas frame */
   width: 100%;
   height: 200px;
   overflow: hidden;
@@ -2514,7 +2667,7 @@ body:has(.loading-overlay) {
 }
 
 /* Base Image & Video Styling */
-.card-img, 
+.card-img,
 .card-video {
   width: 100%;
   height: 100%;
@@ -2532,12 +2685,10 @@ body:has(.loading-overlay) {
    ========================================== */
 .skeleton {
   background-color: #222222;
-  background-image: linear-gradient(
-    90deg,
-    #222222 0%,
-    #333333 50%,
-    #222222 100%
-  );
+  background-image: linear-gradient(90deg,
+      #222222 0%,
+      #333333 50%,
+      #222222 100%);
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
@@ -2546,6 +2697,7 @@ body:has(.loading-overlay) {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -2621,16 +2773,20 @@ body:has(.loading-overlay) {
   }
 
   .customize-container {
-    padding: 20px 10px 60px 10px; /* Padding samping diperkecil agar pas */
+    padding: 20px 10px 60px 10px;
+    /* Padding samping diperkecil agar pas */
   }
 
   .customize-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 Kolom untuk HP */
-    gap: 12px; /* Jarak antar kartu disesuaikan untuk layar HP */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 Kolom untuk HP */
+    gap: 12px;
+    /* Jarak antar kartu disesuaikan untuk layar HP */
   }
 
   .media-container {
-    height: 120px; /* Tinggi media disesuaikan agar proporsional di 2 kolom HP */
+    height: 120px;
+    /* Tinggi media disesuaikan agar proporsional di 2 kolom HP */
   }
 
   .card-body {
@@ -2648,7 +2804,7 @@ body:has(.loading-overlay) {
 }
 
 
- /* Pembungkus Utama Profil */
+/* Pembungkus Utama Profil */
 .profile-page-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -2709,7 +2865,8 @@ main.profile-main {
   align-items: flex-start;
   width: 100%;
   flex: 1;
-  padding: 40px 20px 80px 20px; /* Padding atas diperkecil dari 90px ke 40px agar dekat dengan banner */
+  padding: 40px 20px 80px 20px;
+  /* Padding atas diperkecil dari 90px ke 40px agar dekat dengan banner */
   background-color: #121212 !important;
   background-image: none !important;
   box-sizing: border-box;
@@ -2735,12 +2892,10 @@ main.profile-main {
    ========================================== */
 .skeleton {
   background-color: #222222;
-  background-image: linear-gradient(
-    90deg,
-    #222222 0%,
-    #333333 50%,
-    #222222 100%
-  );
+  background-image: linear-gradient(90deg,
+      #222222 0%,
+      #333333 50%,
+      #222222 100%);
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s infinite ease-in-out;
 }
@@ -2749,6 +2904,7 @@ main.profile-main {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -2788,7 +2944,7 @@ main.profile-main {
   height: 200px;
   border-radius: 10px;
 }
-  
+
 /* Structuring Skeleton Kanan */
 .skeleton-profile-right {
   gap: 35px;
