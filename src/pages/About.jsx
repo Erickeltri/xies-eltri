@@ -30,7 +30,13 @@ const customizeItems = [
     type: "image",
     src: "/images/foto4.jpg",
     caption: "tadi foto kamera 🥀😅",
-    date: "10/11 Oktober 2026"
+    date: "11/10 Oktober 2026"
+  },
+  {
+    type: "video",
+    src: "/video/yonatanpapa.mp4",
+    caption: "jadi ayah yonatan",
+    date: "13/10 Oktober 2026"
   },
 ];
 
