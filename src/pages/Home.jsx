@@ -57,6 +57,10 @@ export default function Home({ userData }) {
             <img
               src="/images/html.jpg"
               alt="html"
+              loading="lazy"
+              decoding="async"
+              width="340"
+              height="250"
               onContextMenu={preventMediaAction}
               onDragStart={preventMediaAction}
             />
@@ -65,6 +69,10 @@ export default function Home({ userData }) {
             <img
               src="/images/javascript.jpg"
               alt="js"
+              loading="lazy"
+              decoding="async"
+              width="340"
+              height="250"
               onContextMenu={preventMediaAction}
               onDragStart={preventMediaAction}
             />
@@ -132,6 +140,11 @@ export default function Home({ userData }) {
       <Link to="/profile">Profile</Link>
       <Link to="/alamat">Alamat</Link>
     </div>
+  </div>
+
+  {/* Copyright */}
+  <div className="footer-copyright">
+    <p>Copyright 2026 Multimedia Education - All rights reserved by Indonesia</p>
   </div>
 </footer>
     </>
