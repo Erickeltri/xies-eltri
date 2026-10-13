@@ -74,7 +74,7 @@ export default function Customize() {
       <div className="customize-container">
         <div className="customize-grid">
           {!loaded
-            ? Array.from({ length: 5 }).map((_, idx) => (
+            ? Array.from({ length: 6 }).map((_, idx) => (
               <div className="skeleton-card" key={`sk-${idx}`}>
                 <div className="skeleton-media" />
                 <div className="skeleton-body">
