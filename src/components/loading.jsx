@@ -6,7 +6,7 @@ export default function Loading({ progress = 0 }) {
     if (pct < 15) return 'CONNECTING TO SERVER...';
     if (pct < 35) return 'AUTHENTICATING NETWORK...';
     if (pct < 60) return 'ESTABLISHING SECURE CONNECTION...';
-    if (pct < 80) return 'DOWNLOADING PROFILE DATA...';
+    if (pct < 80) return 'CV PROFILE DATA...';
     if (pct < 99) return 'VERIFYING ENCRYPTION KEYS...';
     if (pct < 100) return 'FINALIZING SYNCHRONIZATION...';
     return 'CONNECTION ESTABLISHED!';
