@@ -27,15 +27,9 @@ const customizeItems = [
     date: '27/09 September 2026'
   },
   {
-    type: "image",
-    src: "/images/foto4.jpg",
-    caption: "tadi foto kamera 🥀😅",
-    date: "11/10 Oktober 2026"
-  },
-  {
     type: "video",
     src: "/video/yonatanpapa.mp4",
-    caption: "jadi ayah yonatan",
+    caption: "jadi pengendali api",
     date: "13/10 Oktober 2026"
   },
 ];
@@ -74,7 +68,7 @@ export default function Customize() {
       <div className="customize-container">
         <div className="customize-grid">
           {!loaded
-            ? Array.from({ length: 6 }).map((_, idx) => (
+            ? Array.from({ length: 5 }).map((_, idx) => (
               <div className="skeleton-card" key={`sk-${idx}`}>
                 <div className="skeleton-media" />
                 <div className="skeleton-body">
