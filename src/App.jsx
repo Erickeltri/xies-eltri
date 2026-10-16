@@ -1,5 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+
+// Reset scroll ke atas setiap pindah halaman (Home -> About -> Profile dst.)
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 import Header from './components/Header';
 import Loading from './components/loading.jsx';
 
@@ -81,6 +92,8 @@ export default function App() {
   return (
     <>
       {isLoading && <Loading progress={progress} />}
+
+      <ScrollToTop />
 
       {/* Tampilkan Header HANYA jika jalurnya BUKAN /loginpesan */}
       {location.pathname !== '/loginpesan' && <Header />}
