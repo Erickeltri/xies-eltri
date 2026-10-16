@@ -7,7 +7,7 @@ export default function Loading({ progress = 0 }) {
     if (pct < 35) return 'AUTHENTICATING NETWORK...';
     if (pct < 60) return 'ESTABLISHING SECURE CONNECTION...';
     if (pct < 80) return 'CV PROFILE DATA...';
-    if (pct < 99) return 'VERIFYING ENCRYPTION KEYS...';
+    if (pct < 99) return 'VERIFYING   ENCRYPTION KEYS...';
     if (pct < 100) return 'FINALIZING SYNCHRONIZATION...';
     return 'CONNECTION ESTABLISHED!';
   };
@@ -18,10 +18,10 @@ export default function Loading({ progress = 0 }) {
   return (
     <div className="loading-overlay">
       <div className="loading-content">
-        <img 
-          src="/images/logo.png" 
-          alt="NERV Logo" 
-          className="nerv-logo-large" 
+        <img
+          src="/images/logo.png"
+          alt="NERV Logo"
+          className="nerv-logo-large"
         />
 
         <div className="server-status-container">
@@ -29,9 +29,9 @@ export default function Loading({ progress = 0 }) {
             {currentStatus}
           </p>
           <div className="progress-bar-bg">
-            <div 
-              className="progress-bar-fill" 
-              style={{ 
+            <div
+              className="progress-bar-fill"
+              style={{
                 width: `${progress}%`,
                 transition: 'width 0.2s ease-out'
               }}
