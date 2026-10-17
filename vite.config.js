@@ -11,38 +11,26 @@ function customObfuscatorPlugin() {
     generateBundle(options, bundle) {
       for (const fileName in bundle) {
         const file = bundle[fileName]
-        if (fileName.endsWith('.js') && file.type === 'chunk') {
+        // Hanya obfuskasi file utama, lewati vendor/polyfill agar tetap bersih
+        if (fileName.endsWith('.js') && file.type === 'chunk' && !fileName.includes('vendor') && !fileName.includes('polyfill')) {
           const result = JavaScriptObfuscator.obfuscate(file.code, {
             compact: true,
-            identifierNamesGenerator: 'hexadecimal',
+            identifierNamesGenerator: 'mangled',
             renameGlobals: false,
             selfDefending: false,
             stringArray: true,
             stringArrayEncoding: ['base64'],
-            stringArrayThreshold: 1, // 100% teks string diobfuskasi
-            stringArrayCallsTransform: true,
-            stringArrayCallsTransformThreshold: 1,
+            stringArrayThreshold: 1,
+            stringArrayCallsTransform: false,
             stringArrayRotate: true,
             stringArrayShuffle: true,
             stringArrayIndexShift: true,
-            stringArrayWrappersCount: 2,
-            stringArrayWrappersChainedCalls: true,
-            splitStrings: true,
-            splitStringsChunkLength: 4,
-            transformObjectKeys: false, // 👈 DIUBAH MENJADI FALSE agar properti React/objek (className, src, dll) tidak rusak
-            unicodeEscapeSequence: true,
+            stringArrayWrappersCount: 1,
+            stringArrayWrappersChainedCalls: false,
+            splitStrings: false,
+            transformObjectKeys: true,       // 👈 Ubah menjadi true agar 'className', 'src', dll ikut terobfuskasi
+            unicodeEscapeSequence: true,     // 👈 Ubah menjadi true agar format teksnya tertutup rapat
             simplify: true,
-            // Melindungi nama properti standar React agar aman dari perubahan ekstrem
-            reservedNames: [
-              '^className$',
-              '^children$',
-              '^src$',
-              '^alt$',
-              '^loading$',
-              '^decoding$',
-              '^width$',
-              '^height$'
-            ]
           })
           file.code = result.getObfuscatedCode()
         }
