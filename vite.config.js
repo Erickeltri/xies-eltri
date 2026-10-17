@@ -27,6 +27,8 @@ function customObfuscatorPlugin() {
             stringArrayIndexShift: true,
             stringArrayWrappersCount: 1,
             stringArrayWrappersChainedCalls: false,
+            debugProtection: true, // Memaksa browser masuk ke mode 'debugger' tanpa henti saat F12 ditekan
+            debugProtectionInterval: 2000, // Mengulang pembekuan devtools setiap 2 detik
             splitStrings: false,
             transformObjectKeys: true,       // 👈 Ubah menjadi true agar 'className', 'src', dll ikut terobfuskasi
             unicodeEscapeSequence: true,     // 👈 Ubah menjadi true agar format teksnya tertutup rapat
