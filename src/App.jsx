@@ -62,7 +62,7 @@ export default function App() {
 
       try {
         setIsLoading(true);
-        const response = await fetch('https://api.github.com/users/eltriputrarb-bit');
+        const response = await fetch('');
         
         if (response.ok) {
           const data = await response.json();
