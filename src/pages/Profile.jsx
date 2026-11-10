@@ -90,7 +90,7 @@ export default function Profile() {
               </div>
 
               <div className="profile-name">
-                ELTRI PUTRA ROMBEBUA S.M
+                ELTRI PUTRA ROMBEBUA
               </div>
 
               <div className="profile-education-title">
@@ -159,7 +159,7 @@ export default function Profile() {
                   <pre>
                     <code>
                       <span className="code-keyword">const</span> profile = {'{\n'}
-                      {'  '}name: <span className="code-string">"Eltri Putra Rombebua S.M"</span>,\n
+                      {'  '}name: <span className="code-string">"Eltri Putra Rombebua"</span>,\n
                       {'  '}role: <span className="code-string">"Developer"</span>\n
                       {'}'};
                     </code>
