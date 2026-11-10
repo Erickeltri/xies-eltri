@@ -99,7 +99,7 @@ export default function Home({ userData }) {
         Makassar, Sulawesi Selatan
       </p>
       <p className="footer-contact">eltriputrarb@email.com</p>
-      <p className="footer-contact">(+62) 853-9740-0903</p>
+      <p className="footer-contact">(+62) 853-XXXX-XXXX</p>
     </div>
 
     {/* Kolom 2: Form Kirim Pesan */}
